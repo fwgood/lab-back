@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrome.infra.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="CHAR" property="userPassword" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="user_role" jdbcType="CHAR" property="userRole" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="user_grade" jdbcType="VARCHAR" property="userGrade" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_college" jdbcType="VARCHAR" property="userCollege" />
+    <result column="user_major" jdbcType="VARCHAR" property="userMajor" />
+    <result column="user_lastsignin" jdbcType="VARCHAR" property="userLastsignin" />
+  </resultMap>
+</mapper>

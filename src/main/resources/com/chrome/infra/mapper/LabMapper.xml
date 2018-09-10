@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrome.infra.mapper.LabMapper">
+  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.Lab">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="lab_id" jdbcType="INTEGER" property="labId" />
+    <result column="lab_name" jdbcType="VARCHAR" property="labName" />
+    <result column="lab_content" jdbcType="VARCHAR" property="labContent" />
+    <result column="lab_url" jdbcType="VARCHAR" property="labUrl" />
+    <result column="lab_starttime" jdbcType="CHAR" property="labStarttime" />
+    <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
+  </resultMap>
+</mapper>

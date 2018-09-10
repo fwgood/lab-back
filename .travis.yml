@@ -10,7 +10,7 @@ install:
   - chmod 777 ./mvnw
   - sudo ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-  - sudo mvn clean package -DskipTests=true
+  - sudo ./mvnw clean package -DskipTests=true
 
 after_success:
   - sudo apt-get install -y sshpass

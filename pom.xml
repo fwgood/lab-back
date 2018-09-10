@@ -6,10 +6,12 @@
     <groupId>com.chrome</groupId>
     <artifactId>lab-back</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+
     <!--<packaging>jar</packaging>-->
     <!--开发环境-->
     <packaging>war</packaging>
-    <name>experiment</name>
+    <name>lab-back</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -41,6 +43,8 @@
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-undertow</artifactId>-->
+
+
         <!--</dependency>-->
         <!--开发环境外置服务器-->
         <dependency>
@@ -136,12 +140,12 @@
     </dependencies>
 
     <build>
+        <finalName>lab</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>lab</finalName>
                     <mainClass>com.chrome.ExperimentApplication</mainClass>
                 </configuration>
                 <executions>

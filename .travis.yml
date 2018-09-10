@@ -8,6 +8,8 @@ jdk:
 cache:
   directories:
     - "$HOME/.m2/repository"
+before_install:
+  - sudo apt-get install -y sshpass
 install:
   - chmod 777 ./mvnw
   - sudo ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
@@ -15,7 +17,6 @@ script:
   - sudo ./mvnw clean package -DskipTests=true
 
 after_success:
-  - sudo apt-get install -y sshpass
   - echo "$SSH_KNOWN_HOST" > ~/.ssh/known_hosts
   - cd ./target
   - sshpass -p $SSH_PASS scp lab.war  $SSH_USER@$SSH_IP:/usr/local/tomcat/webapps

@@ -1,0 +1,46 @@
+server:
+  port: 8081
+
+spring:
+    datasource:
+        name: mysql_test
+        type: com.alibaba.druid.pool.DruidDataSource
+        #druid connect pool
+        druid:
+
+          #profiles for pool
+          filters: stat
+          driver-class-name: com.mysql.jdbc.Driver
+          #url
+          #url: jdbc:mysql://192.168.99.100:3306/labsysytem?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&relaxAutoCommit=true
+          url: jdbc:mysql://39.108.5.82:3306/labsystem?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&relaxAutoCommit=true
+          username: root
+          password: root123456
+
+          #password: 123456
+          initial-size: 1
+          min-idle: 1
+          max-active: 20
+          max-wait: 60000
+          time-between-eviction-runs-millis: 60000
+          min-evictable-idle-time-millis: 300000
+          validation-query: SELECT 'x'
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          pool-prepared-statements: false
+          max-pool-prepared-statement-per-connection-size: 20
+          #mybatis xml profiles
+mybatis:
+  mapper-locations: classpath:com/chrome/infra/mapper/*.xml
+  type-aliases-package: com.chrome.domain.entity
+  configuration: # 数据库下划线转驼峰配置
+      mapUnderscoreToCamelCase: true
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    returnPageInfo: check

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrome.infra.mapper.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.News">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="news_id" jdbcType="INTEGER" property="newsId" />
+    <result column="news_sendid" jdbcType="INTEGER" property="newsSendid" />
+    <result column="news_sendname" jdbcType="VARCHAR" property="newsSendname" />
+    <result column="news_acceptid" jdbcType="INTEGER" property="newsAcceptid" />
+    <result column="news_acceptname" jdbcType="VARCHAR" property="newsAcceptname" />
+    <result column="news_content" jdbcType="VARCHAR" property="newsContent" />
+    <result column="news_time" jdbcType="CHAR" property="newsTime" />
+    <result column="news_state" jdbcType="CHAR" property="newsState" />
+  </resultMap>
+</mapper>

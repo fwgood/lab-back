@@ -1,0 +1,30 @@
+version: "3"
+services:
+  mysql-1:
+    container_name: mysql-1
+    build: ./docker/mysql
+    image: javatest/mysql:1.0
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+  java-1:
+    container_name: java-1
+    build: ./docker/java
+    image: javatest/java:1.0
+    depends_on:
+    - mysql-1
+    links:
+    - mysql-1
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    environment:
+      MYSQL_IP: mysql-1
+      MYSQL_PORT: 3306
+      USERNAME: root
+      PASSWORD: 123456
+      DBNAME: "sakila"

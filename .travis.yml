@@ -6,6 +6,9 @@ jdk:
 cache:
   directories:
     - "$HOME/.m2/repository"
+install:
+  - chmod 777
+  - sudo ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - sudo mvn clean package -DskipTests=true
 

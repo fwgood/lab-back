@@ -7,7 +7,7 @@ cache:
   directories:
     - "$HOME/.m2/repository"
 script:
-  - mvn clean package -DskipTests=true
+  - sudo mvn clean package -DskipTests=true
 
 after_success:
   - sudo apt-get install -y sshpass

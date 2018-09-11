@@ -20,4 +20,6 @@ after_success:
   - echo "$SSH_KNOWN_HOST" > ~/.ssh/known_hosts
   - cd ./target
   - sshpass -p $SSH_PASS scp lab.war  $SSH_USER@$SSH_IP:/usr/local/tomcat/webapps
-
+branches:
+  only:
+    - master

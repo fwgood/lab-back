@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserService {
     public List<User> selectAll() {
         return userMapper.selectAll();
     }
+
+    @Override
+    public String getRole(String username) {
+        return userMapper.getRole(username);
+    }
 }

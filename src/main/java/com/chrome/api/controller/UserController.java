@@ -96,6 +96,17 @@ public class UserController {
     }
 
 
+    @ApiOperation("用户登出")
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> logout(HttpServletRequest request) {
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        String token = jedis.get(username);
+        jedis.del(username);
+        jedis.del(token);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @ApiOperation("测试token接口")
     @RequestMapping(value = "test", method = RequestMethod.GET)

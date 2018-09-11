@@ -21,7 +21,9 @@ public class Swagger2 {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        Docket docket=new Docket(DocumentationType.SWAGGER_2);
+        docket=docket.host("lab.lli.fun");
+        return   docket
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.chrome.api.controller"))

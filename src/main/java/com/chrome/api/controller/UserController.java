@@ -34,7 +34,6 @@ import redis.clients.jedis.Jedis;
 public class UserController {
     Jedis jedis = new Jedis("localhost", 6379);
 
-    private HttpServletRequest request;
 
     @Autowired
     Md5TokenGenerator tokenGenerator;
@@ -57,10 +56,12 @@ public class UserController {
         String message;
         if (currentUser != null) {
             token = tokenGenerator.generate(username, password);
+            System.out.println(token);
             result.put("token",token);
             jedis.set(username, token);
             jedis.expire(username, ConstantKit.TOKEN_EXPIRE_TIME);
             jedis.set(token, username);
+            System.out.println(jedis.get(token));
             jedis.expire(token, ConstantKit.TOKEN_EXPIRE_TIME);
             Long currentTime = System.currentTimeMillis();
             jedis.set(token + username, currentTime.toString());
@@ -82,9 +83,10 @@ public class UserController {
     }
 
     @ApiOperation("获取当前用户")
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @AuthToken
-    public ResponseEntity<JSONObject> getCurrentUser() {
+    public ResponseEntity<JSONObject> getCurrentUser(HttpServletRequest request) {
+
 
         JSONObject result = new JSONObject();
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
@@ -92,6 +94,19 @@ public class UserController {
         result.put("user",user);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+
+    @ApiOperation("用户登出")
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> logout(HttpServletRequest request) {
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        String token = jedis.get(username);
+        jedis.del(username);
+        jedis.del(token);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @ApiOperation("测试token接口")
     @RequestMapping(value = "test", method = RequestMethod.GET)

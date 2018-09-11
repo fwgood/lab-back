@@ -13,4 +13,6 @@ import com.chrome.domain.entity.User;
 public interface UserService {
     User login(User user);
     List<User> selectAll();
+
+    User selectByUsername(String username);
 }

@@ -20,13 +20,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-
+//登陆
     @Override
     public User login(User user) {
         return userMapper.selectOne(user);
 
     }
-
+//根据用户名获得当前用户
+    @Override
+    public User selectByUsername(String username) {
+        User user=new User();
+        user.setUserName(username);
+        return userMapper.selectOne(user);
+    }
+//列出所有用户
     @Override
     public List<User> selectAll() {
         return userMapper.selectAll();

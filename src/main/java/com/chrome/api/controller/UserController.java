@@ -30,6 +30,7 @@ import redis.clients.jedis.Jedis;
 @Slf4j
 @RequestMapping("/api/v1/user")
 public class UserController {
+    Jedis jedis = new Jedis("localhost", 6379);
 
     @Autowired
     Md5TokenGenerator tokenGenerator;
@@ -47,14 +48,10 @@ public class UserController {
         user.setUserName(username);
         user.setUserPassword(tokenGenerator.passwordMd5(password));
         User currentUser = userService.login(user);
-
-
         JSONObject result = new JSONObject();
         String token;
         String message;
         if (currentUser != null) {
-
-            Jedis jedis = new Jedis("localhost", 6379);
             token = tokenGenerator.generate(username, password);
             result.put("token",token);
             jedis.set(username, token);
@@ -63,20 +60,26 @@ public class UserController {
             jedis.expire(token, ConstantKit.TOKEN_EXPIRE_TIME);
             Long currentTime = System.currentTimeMillis();
             jedis.set(token + username, currentTime.toString());
-
             //用完关闭
             jedis.close();
-
           message="登陆成功";
             result.put("message",message);
         } else {
             message="登陆失败";
             result.put("message",message);
-
         }
       return  new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
+    }
 
-
+    @ApiOperation("获取当前用户")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<JSONObject> getCurrentUser() {
+        JSONObject result = new JSONObject();
+        String username = jedis.get("token");
+        User user = userService.selectByUsername(username);
+        result.put("user",user);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @ApiOperation("测试token接口")

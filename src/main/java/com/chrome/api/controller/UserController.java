@@ -3,6 +3,7 @@ package com.chrome.api.controller;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chrome.api.dto.LoginDto;
 import com.chrome.api.dto.ResponseTemplate;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.User;
@@ -40,10 +41,10 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ApiOperation("用户登录接口")
-    public ResponseEntity<JSONObject> login(@RequestBody(required = false) JSONObject userInfo) {
+    public ResponseEntity<JSONObject> login(@RequestBody(required = false) LoginDto loginDto) {
 
-        String username = userInfo.getString("username");
-        String password = userInfo.getString("password");
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
         User user = new User();
         user.setUserName(username);
         user.setUserPassword(tokenGenerator.passwordMd5(password));

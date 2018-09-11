@@ -64,11 +64,15 @@ public class UserController {
             jedis.close();
           message="登陆成功";
             result.put("message",message);
+            result.put("code",200);
+            return  new ResponseEntity<>(result,HttpStatus.OK);
         } else {
             message="登陆失败";
+            result.put("code",401);
             result.put("message",message);
+            return  new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }
-      return  new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
+
     }
 
     @ApiOperation("获取当前用户")

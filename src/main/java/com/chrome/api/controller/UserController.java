@@ -1,5 +1,6 @@
 package com.chrome.api.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -33,6 +34,8 @@ import redis.clients.jedis.Jedis;
 public class UserController {
     Jedis jedis = new Jedis("localhost", 6379);
 
+    private HttpServletRequest request;
+
     @Autowired
     Md5TokenGenerator tokenGenerator;
 
@@ -64,8 +67,10 @@ public class UserController {
             //用完关闭
             jedis.close();
           message="登陆成功";
+          String role=userService.getRole(username);
             result.put("message",message);
             result.put("code",200);
+            result.put("role",role);
             return  new ResponseEntity<>(result,HttpStatus.OK);
         } else {
             message="登陆失败";
@@ -80,8 +85,9 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<JSONObject> getCurrentUser() {
+
         JSONObject result = new JSONObject();
-        String username = jedis.get("token");
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         User user = userService.selectByUsername(username);
         result.put("user",user);
         return new ResponseEntity<>(result,HttpStatus.OK);

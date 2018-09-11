@@ -17,4 +17,9 @@
     <result column="user_major" jdbcType="VARCHAR" property="userMajor" />
     <result column="user_lastsignin" jdbcType="VARCHAR" property="userLastsignin" />
   </resultMap>
+
+  <select id="getRole" resultType="string">
+      SELECT user_role FROM user U WHERE U.user_name = #{username}
+    </select>
+
 </mapper>

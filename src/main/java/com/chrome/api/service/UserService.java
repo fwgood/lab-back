@@ -15,4 +15,6 @@ public interface UserService {
     List<User> selectAll();
 
     User selectByUsername(String username);
+
+    String getRole(String username);
 }

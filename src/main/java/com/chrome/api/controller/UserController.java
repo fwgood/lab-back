@@ -83,7 +83,7 @@ public class UserController {
     }
 
     @ApiOperation("获取当前用户")
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<JSONObject> getCurrentUser(HttpServletRequest request) {
 

@@ -12,6 +12,8 @@ import com.chrome.infra.util.Md5TokenGenerator;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +28,7 @@ import redis.clients.jedis.Jedis;
  */
 @RestController
 @Slf4j
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     @Autowired
@@ -37,7 +39,7 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ApiOperation("用户登录接口")
-    public ResponseTemplate login(@RequestBody(required = false) JSONObject userInfo) {
+    public ResponseEntity<JSONObject> login(@RequestBody(required = false) JSONObject userInfo) {
 
         String username = userInfo.getString("username");
         String password = userInfo.getString("password");
@@ -48,12 +50,13 @@ public class UserController {
 
 
         JSONObject result = new JSONObject();
-        String token=null;
-        String message=null;
+        String token;
+        String message;
         if (currentUser != null) {
 
             Jedis jedis = new Jedis("localhost", 6379);
             token = tokenGenerator.generate(username, password);
+            result.put("token",token);
             jedis.set(username, token);
             jedis.expire(username, ConstantKit.TOKEN_EXPIRE_TIME);
             jedis.set(token, username);
@@ -65,15 +68,14 @@ public class UserController {
             jedis.close();
 
           message="登陆成功";
+            result.put("message",message);
         } else {
             message="登陆失败";
-        }
+            result.put("message",message);
 
-        return ResponseTemplate.builder()
-                .code(200)
-                .message(message)
-                .data(token)
-                .build();
+        }
+      return  new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
+
 
     }
 

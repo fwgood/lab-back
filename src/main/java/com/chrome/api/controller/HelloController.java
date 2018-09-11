@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
  * Date:2018/9/8
  * Time:9:48
  */
-@RequestMapping("/a")
+@RequestMapping("api/v1/hello")
 @RestController
 public class HelloController {
 
-    @GetMapping("/helloworld")
+    @GetMapping("/")
     public void hello() {
         System.out.println(1);
     }

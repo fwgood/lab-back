@@ -22,6 +22,7 @@ public class Swagger2 {
     @Bean
     public Docket createRestApi() {
         Docket docket=new Docket(DocumentationType.SWAGGER_2);
+        //开发环境
         docket=docket.host("lab.lli.fun");
         return   docket
                 .apiInfo(apiInfo())

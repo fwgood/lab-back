@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 public class News {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
+    @Column(name = "news_id")
     private Integer newsId;
 
     @Column(name = "news_sendid")

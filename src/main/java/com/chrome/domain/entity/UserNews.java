@@ -8,8 +8,8 @@ public class UserNews {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;
 
-    @Column(name = "new_id")
-    private Integer newId;
+    @Column(name = "news_id")
+    private Integer newsId;
 
     @Column(name = "user_id")
     private Integer userId;
@@ -29,17 +29,17 @@ public class UserNews {
     }
 
     /**
-     * @return new_id
+     * @return news_id
      */
-    public Integer getNewId() {
-        return newId;
+    public Integer getNewsId() {
+        return newsId;
     }
 
     /**
-     * @param newId
+     * @param newsId
      */
-    public void setNewId(Integer newId) {
-        this.newId = newId;
+    public void setNewsId(Integer newsId) {
+        this.newsId = newsId;
     }
 
     /**

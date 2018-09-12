@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 public class Blog {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
-    private Integer blog;
+    @Column(name = "blog_id")
+    private Integer blogId;
 
     @Column(name = "blog_title")
     private String blogTitle;
@@ -17,17 +17,17 @@ public class Blog {
     private String blogTime;
 
     /**
-     * @return blog
+     * @return blog_id
      */
-    public Integer getBlog() {
-        return blog;
+    public Integer getBlogId() {
+        return blogId;
     }
 
     /**
-     * @param blog
+     * @param blogId
      */
-    public void setBlog(Integer blog) {
-        this.blog = blog;
+    public void setBlogId(Integer blogId) {
+        this.blogId = blogId;
     }
 
     /**

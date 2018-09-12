@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 public class Announncement {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
+    @Column(name = "announncement_id")
     private Integer announncementId;
 
     @Column(name = "announncement_content")

@@ -11,6 +11,7 @@ import com.chrome.domain.entity.User;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.util.ConstantKit;
 import com.chrome.infra.util.Md5TokenGenerator;
+import com.chrome.infra.util.RedisUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import redis.clients.jedis.Jedis;
 @Slf4j
 @RequestMapping("/api/v1/user")
 public class UserController {
-    Jedis jedis = new Jedis("localhost", 6379);
+  
 
 
     @Autowired
@@ -43,7 +44,8 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ApiOperation("用户登录接口")
-    public ResponseEntity<JSONObject> login(@RequestBody(required = false) LoginDto loginDto) {
+    public ResponseEntity<JSONObject> login(@RequestBody LoginDto loginDto) {
+        Jedis jedis = RedisUtil.getJedis();
 
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
@@ -66,7 +68,7 @@ public class UserController {
             Long currentTime = System.currentTimeMillis();
             jedis.set(token + username, currentTime.toString());
             //用完关闭
-            jedis.close();
+            RedisUtil.returnResource(jedis);
           message="登陆成功";
           String role=userService.getRole(username);
             result.put("message",message);
@@ -85,16 +87,29 @@ public class UserController {
     @ApiOperation("获取当前用户")
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @AuthToken
-    public ResponseEntity<JSONObject> getCurrentUser(HttpServletRequest request) {
+    public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
 
 
-        JSONObject result = new JSONObject();
+
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         User user = userService.selectByUsername(username);
-        result.put("user",user);
-        return new ResponseEntity<>(result,HttpStatus.OK);
+
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
+
+    @ApiOperation("用户登出")
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> logout(HttpServletRequest request) {
+        Jedis jedis = RedisUtil.getJedis();
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        String token = jedis.get(username);
+        jedis.del(username);
+        jedis.del(token);
+        RedisUtil.returnResource(jedis);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
     @ApiOperation("测试token接口")

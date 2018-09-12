@@ -37,7 +37,19 @@ public class User {
     @Column(name = "user_lastsignin")
     private String userLastsignin;
 
+    @Column(name = "user_sex")
+    private String userSex;
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
+    }
+
     /**
+
      * @return user_id
      */
     public Integer getUserId() {

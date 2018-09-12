@@ -92,6 +92,16 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public boolean checkCourse(Integer courseState, Integer courseId) {
+        Course course=new Course();
+        course.setCourseId(courseId);
+        course.setCourseState(courseState);
+
+        int i = courseMapper.updateByPrimaryKey(course);
+        return i==1?true:false;
+    }
+
+    @Override
     public boolean deleteCourse(Integer courseState, Integer courseId) {
         if(courseState==0){
             int i = courseMapper.deleteByPrimaryKey(courseId);

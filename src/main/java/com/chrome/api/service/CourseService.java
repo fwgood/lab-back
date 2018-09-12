@@ -24,4 +24,6 @@ public interface CourseService {
     List<Course> selectStateCourse();
 
     boolean deleteCourse(Integer courseState, Integer courseId);
+
+    boolean checkCourse(Integer courseState, Integer courseId);
 }

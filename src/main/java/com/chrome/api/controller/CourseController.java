@@ -96,4 +96,17 @@ public class CourseController {
         }
     }
 
+    @ApiOperation("管理员审核课程")
+    @RequestMapping(value = "/checkCourse", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> checkCourse(@RequestParam Integer courseState,@RequestParam Integer courseId) {
+
+
+        if(courseService.checkCourse(courseState,courseId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
 }

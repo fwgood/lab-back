@@ -16,6 +16,7 @@
     <result column="user_college" jdbcType="VARCHAR" property="userCollege" />
     <result column="user_major" jdbcType="VARCHAR" property="userMajor" />
     <result column="user_lastsignin" jdbcType="VARCHAR" property="userLastsignin" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
   </resultMap>
 
   <select id="getRole" resultType="string">

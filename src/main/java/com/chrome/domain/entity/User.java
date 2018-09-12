@@ -3,9 +3,8 @@ package com.chrome.domain.entity;
 import javax.persistence.*;
 
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
+    @Column(name = "user_id")
     private Integer userId;
 
     @Column(name = "user_name")

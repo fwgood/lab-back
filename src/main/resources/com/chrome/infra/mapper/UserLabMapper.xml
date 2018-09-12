@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrome.infra.mapper.UserLabMapper">
+  <resultMap id="userLab" type="com.chrome.domain.entity.UserLab">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="lab_id" jdbcType="INTEGER" property="labId" />
+    <result column="score" jdbcType="REAL" property="score" />
+    <result column="lab_name" jdbcType="VARCHAR" property="labName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+  </resultMap>
+
+  <select id="selectLabList" resultMap="userLab">
+    select ul.*
+    FROM user_lab ul
+    where ul.user_name=#{username}
+      AND ul.course_id = #{courseId}
+
+
+  </select>
+</mapper>

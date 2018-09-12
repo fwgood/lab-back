@@ -13,6 +13,12 @@ public class Selectcourse {
     @Column(name = "user_id")
     private Integer userId;
 
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name = "course_name")
+    private String courseName;
+
     /**
      * @return id
      */
@@ -53,5 +59,33 @@ public class Selectcourse {
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return user_name
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return course_name
+     */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /**
+     * @param courseName
+     */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }

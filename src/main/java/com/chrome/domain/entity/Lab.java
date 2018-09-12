@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 public class Lab {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
+    @Column(name = "lab_id")
     private Integer labId;
 
     @Column(name = "lab_name")
@@ -21,6 +21,9 @@ public class Lab {
 
     @Column(name = "lab_deadline")
     private String labDeadline;
+
+    @Column(name = "course_id")
+    private Integer courseId;
 
     /**
      * @return lab_id
@@ -104,5 +107,19 @@ public class Lab {
      */
     public void setLabDeadline(String labDeadline) {
         this.labDeadline = labDeadline;
+    }
+
+    /**
+     * @return course_id
+     */
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    /**
+     * @param courseId
+     */
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 }

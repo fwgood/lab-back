@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chrome.infra.mapper.BlogMapper">
-  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.Blog">
+  <resultMap id="blog" type="com.chrome.domain.entity.Blog">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="blog" jdbcType="INTEGER" property="blog" />
+    <id column="blog_id" jdbcType="INTEGER" property="blogId" />
     <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
     <result column="blog_content" jdbcType="VARCHAR" property="blogContent" />
     <result column="blog_time" jdbcType="CHAR" property="blogTime" />

@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="new_id" jdbcType="INTEGER" property="newId" />
+    <result column="news_id" jdbcType="INTEGER" property="newsId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
 </mapper>

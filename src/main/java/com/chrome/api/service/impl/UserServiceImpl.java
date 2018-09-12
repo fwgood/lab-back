@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public List<User> selectAll() {
         return userMapper.selectAll();
     }
-
+//获取用户的权限
     @Override
     public String getRole(String username) {
         return userMapper.getRole(username);

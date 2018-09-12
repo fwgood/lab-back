@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chrome.infra.mapper.LabMapper">
-  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.Lab">
+  <resultMap id="lab" type="com.chrome.domain.entity.Lab">
     <!--
       WARNING - @mbg.generated
     -->
@@ -11,5 +11,16 @@
     <result column="lab_url" jdbcType="VARCHAR" property="labUrl" />
     <result column="lab_starttime" jdbcType="CHAR" property="labStarttime" />
     <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
   </resultMap>
+
+  <select id="selectLabList" resultMap="lab">
+    select l.*
+    FROM user_lab ul,lab l
+    where ul.user_name=#{username}
+    AND l.course_id = #{courseId}
+    AND ul.lab_id=l.lab_id
+
+
+  </select>
 </mapper>

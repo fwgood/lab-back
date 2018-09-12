@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
+    @Column(name = "course_id")
     private Integer courseId;
 
     @Column(name = "course_name")
@@ -24,6 +24,8 @@ public class Course {
 
     @Column(name = "course_password")
     private String coursePassword;
+
+    private String term;
 
     /**
      * @return course_id
@@ -121,5 +123,19 @@ public class Course {
      */
     public void setCoursePassword(String coursePassword) {
         this.coursePassword = coursePassword;
+    }
+
+    /**
+     * @return term
+     */
+    public String getTerm() {
+        return term;
+    }
+
+    /**
+     * @param term
+     */
+    public void setTerm(String term) {
+        this.term = term;
     }
 }

@@ -44,9 +44,9 @@ public class CourseController {
     @ApiOperation("学生选课课程列表")
     @RequestMapping(value = "/stateCourseList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Course>> selectStateCourse(HttpServletRequest request) {
+    public ResponseEntity<List<Course>> selectStateCourse(@RequestParam(required = false) String param) {
 
-        List<Course> list=courseService.selectStateCourse();
+        List<Course> list=courseService.selectStateCourse(param);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
@@ -57,6 +57,19 @@ public class CourseController {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         if(courseService.selectCourse(username,password,courseId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @ApiOperation("学生退课")
+    @RequestMapping(value = "/dropCourse", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> dropCourse(HttpServletRequest request,@RequestParam Integer courseId) {
+
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        if(courseService.dropCourse(username,courseId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
@@ -100,6 +113,19 @@ public class CourseController {
     @RequestMapping(value = "/checkCourse", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<Object> checkCourse(@RequestParam Integer courseState,@RequestParam Integer courseId) {
+
+
+        if(courseService.checkCourse(courseState,courseId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @ApiOperation("模糊查询课程")
+    @RequestMapping(value = "/fuzzyCourse", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> fuzzyCourse(@RequestParam Integer courseState,@RequestParam Integer courseId) {
 
 
         if(courseService.checkCourse(courseState,courseId)) {

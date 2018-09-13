@@ -62,6 +62,16 @@ public class LabController {
         List<Lab> list= labService.getLabScoreList(username,courseId);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+    @ApiOperation("老师给学生实验批改成绩")
+    @RequestMapping(value = "/addLabScore", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> addLab(@RequestParam Integer userId,@RequestParam Integer labId,@RequestParam Float score) {
+        if(labService.addLabScore(userId,labId,score)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 
 
 }

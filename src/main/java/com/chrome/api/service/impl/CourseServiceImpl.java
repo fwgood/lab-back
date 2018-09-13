@@ -97,7 +97,7 @@ public class CourseServiceImpl implements CourseService {
         course.setCourseId(courseId);
         course.setCourseState(courseState);
 
-        int i = courseMapper.updateByPrimaryKey(course);
+        int i = courseMapper.updateByPrimaryKeySelective(course);
         return i==1?true:false;
     }
 

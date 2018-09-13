@@ -23,4 +23,6 @@ public interface LabService {
     void addLab(Lab lab);
 
     List<Lab> getLabScoreList(String username, Integer courseId);
+
+    boolean addLabScore(Integer userId, Integer labId, Float score);
 }

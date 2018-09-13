@@ -43,4 +43,16 @@ public class UserServiceImpl implements UserService {
     public String getRole(String username) {
         return userMapper.getRole(username);
     }
+
+    @Override
+    public void updateUser(String username, String userPassword, String avater, String phone) {
+        User user=new User();
+        user.setUserName(username);
+        User user1 = userMapper.selectOne(user);
+        user1.setUserPassword(userPassword);
+        user1.setUserAvatar(avater);
+        user1.setUserPhone(phone);
+        userMapper.updateByPrimaryKeySelective(user1);
+
+    }
 }

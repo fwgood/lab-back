@@ -17,10 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -111,6 +108,19 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation("更改用户信息")
+    @RequestMapping(value = "updateUser", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> updateUser(HttpServletRequest request,
+                                             @RequestParam(required = false)String password,
+                                             @RequestParam(required = false)String avater,
+                                             @RequestParam(required = false)String phone) {
+
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        String userPassword = tokenGenerator.passwordMd5(password);
+        userService.updateUser(username,userPassword,avater,phone);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @ApiOperation("测试token接口")
     @RequestMapping(value = "test", method = RequestMethod.GET)

@@ -58,8 +58,9 @@ public class LabServiceImpl implements LabService {
         UserLab userLab =new UserLab();
         userLab.setLabId(labId);
         userLab.setUserId(userId);
-        userLab.setScore(score);
-        int i = userLabMapper.updateByPrimaryKeySelective(userLab);
+        UserLab userLab1 = userLabMapper.selectOne(userLab);
+        userLab1.setScore(score);
+        int i = userLabMapper.updateByPrimaryKeySelective(userLab1);
         if(i!=1){
             return false;
         }else{

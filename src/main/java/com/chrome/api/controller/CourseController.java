@@ -6,6 +6,7 @@ import java.util.List;
 import com.chrome.api.service.CourseService;
 import com.chrome.domain.entity.Course;
 import com.chrome.infra.annotation.AuthToken;
+import com.chrome.infra.interceptor.AuthorizationInterceptor;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class CourseController {
     @AuthToken
     public ResponseEntity<List<Course>> getCourseList(HttpServletRequest request) {
 
-        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
         List<Course> list= courseService.selectCourseList(username);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
@@ -122,17 +123,6 @@ public class CourseController {
         }
     }
 
-    @ApiOperation("模糊查询课程")
-    @RequestMapping(value = "/fuzzyCourse", method = RequestMethod.POST)
-    @AuthToken
-    public ResponseEntity<Object> fuzzyCourse(@RequestParam Integer courseState,@RequestParam Integer courseId) {
 
-
-        if(courseService.checkCourse(courseState,courseId)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-    }
 
 }

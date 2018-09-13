@@ -20,4 +20,7 @@ public interface UserService {
     User selectByUsername(String username);
 
     String getRole(String username);
+
+
+    void updateUser(String username, String userPassword, String avater, String phone);
 }

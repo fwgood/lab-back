@@ -14,13 +14,40 @@
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
   </resultMap>
 
+  <resultMap id="labScoreDto" type="com.chrome.api.dto.LabScoreDto">
+    <id column="lab_id" jdbcType="INTEGER" property="labId" />
+    <result column="lab_name" jdbcType="VARCHAR" property="labName" />
+    <result column="lab_content" jdbcType="VARCHAR" property="labContent" />
+    <result column="lab_url" jdbcType="VARCHAR" property="labUrl" />
+    <result column="lab_starttime" jdbcType="CHAR" property="labStarttime" />
+    <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
+    <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
+      <result property="score" jdbcType="INTEGER" column="score"/>
+  </resultMap>
+
+
+
   <select id="selectLabList" resultMap="lab">
-    select l.*
+    select l.lab_id
     FROM user_lab ul,lab l
     where ul.user_name=#{username}
     AND l.course_id = #{courseId}
     AND ul.lab_id=l.lab_id
 
 
+  </select>
+
+  <select id="getLabScoreList" resultMap="labScoreDto">
+     select l.lab_id,
+     l.lab_name,
+     l.lab_content,
+     l.lab_url,
+     l.lab_starttime,
+     l.lab_deadline,
+     ul.score
+    FROM user_lab ul,lab l
+    where ul.user_name=#{username}
+    AND l.course_id = #{courseId}
+    AND ul.lab_id=l.lab_id
   </select>
 </mapper>

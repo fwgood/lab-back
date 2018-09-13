@@ -22,10 +22,10 @@ public class LabServiceImpl implements LabService {
     private LabMapper labMapper;
     @Autowired
     private UserLabMapper userLabMapper;
-    @Override
+   /* @Override
     public List<Lab> selectLabList(String username, Integer courseId) {
         return labMapper.selectLabList(username,courseId);
-    }
+    }*/
 
     @Override
     public List<Lab> selectLabListOnCourse(Integer courseId) {
@@ -45,5 +45,11 @@ public class LabServiceImpl implements LabService {
     @Override
     public void addLab(Lab lab) {
         labMapper.insert(lab);
+    }
+
+    @Override
+    public List<Lab> getLabScoreList(String username, Integer courseId) {
+       return  labMapper.getLabScoreList(username,courseId);
+
     }
 }

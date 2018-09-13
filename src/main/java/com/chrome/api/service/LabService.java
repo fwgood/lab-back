@@ -14,11 +14,13 @@ import com.chrome.domain.entity.UserLab;
 public interface LabService {
 
 
-    List<Lab> selectLabList(String username, Integer courseId);
-
+    /*List<Lab> selectLabList(String username, Integer courseId);
+*/
     List<Lab> selectLabListOnCourse(Integer courseId);
 
     List<UserLab> getScoreList(Integer labId);
 
     void addLab(Lab lab);
+
+    List<Lab> getLabScoreList(String username, Integer courseId);
 }

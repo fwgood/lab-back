@@ -28,7 +28,7 @@ public class LabController {
     @Autowired
     private LabService labService;
 
-    @ApiOperation("学生获取当前用户某课程下实验列表")
+   /* @ApiOperation("学生获取当前用户某课程下实验列表")
     @RequestMapping(value = "/labList", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<List<Lab>> getCourseList(HttpServletRequest request, @RequestParam Integer courseId) {
@@ -36,7 +36,7 @@ public class LabController {
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         List<Lab> list= labService.selectLabList(username,courseId);
         return new ResponseEntity<>(list,HttpStatus.OK);
-    }
+    }*/
 
     @ApiOperation("老师获取当前实验下的所有学生成绩信息")
     @RequestMapping(value = "/scoreList", method = RequestMethod.GET)
@@ -51,6 +51,16 @@ public class LabController {
     public ResponseEntity<List<UserLab>> addLab(@RequestBody Lab lab) {
         labService.addLab(lab);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("学生获取当前用户某课程下实验及成绩列表")
+    @RequestMapping(value = "/labScoreList", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<List<Lab>> getLabScoreList(HttpServletRequest request, @RequestParam Integer courseId) {
+
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        List<Lab> list= labService.getLabScoreList(username,courseId);
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
 

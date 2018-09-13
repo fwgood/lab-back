@@ -52,4 +52,18 @@ public class LabServiceImpl implements LabService {
        return  labMapper.getLabScoreList(username,courseId);
 
     }
+
+    @Override
+    public boolean addLabScore(Integer userId, Integer labId, Float score) {
+        UserLab userLab =new UserLab();
+        userLab.setLabId(labId);
+        userLab.setUserId(userId);
+        userLab.setScore(score);
+        int i = userLabMapper.updateByPrimaryKeySelective(userLab);
+        if(i!=1){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

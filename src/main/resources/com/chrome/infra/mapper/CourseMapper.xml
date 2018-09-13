@@ -36,9 +36,14 @@
               c.term
     FROM course c
     where c.course_state=1
+      <if test="param != null">
+          AND  c.course_name LIKE concat('%',#{param},'%')
+      </if>
 
 
 
 
   </select>
+
+
 </mapper>

@@ -86,8 +86,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectStateCourse() {
-       return courseMapper.selectStateCourse();
+    public List<Course> selectStateCourse(String param) {
+       return courseMapper.selectStateCourse(param);
 
     }
 
@@ -99,6 +99,23 @@ public class CourseServiceImpl implements CourseService {
 
         int i = courseMapper.updateByPrimaryKeySelective(course);
         return i==1?true:false;
+    }
+
+    @Override
+    public boolean dropCourse(String username, Integer courseId) {
+
+
+            Selectcourse selectcourse =new Selectcourse();
+            selectcourse.setCourseId(courseId);
+            selectcourse.setUserName(username);
+        int delete = selectcourseMapper.delete(selectcourse);
+
+        UserLab userLab=new UserLab();
+            userLab.setCourseId(courseId);
+            userLab.setUserName(username);
+            userLabMapper.delete(userLab);
+        return delete==1?true:false;
+
     }
 
     @Override

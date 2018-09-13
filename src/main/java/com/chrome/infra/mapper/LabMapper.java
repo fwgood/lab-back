@@ -14,4 +14,6 @@ public interface LabMapper extends MyMapper<Lab> {
 
 
     List<Lab> selectLabList(@Param("username") String username, @Param("courseId") Integer courseId);
+
+    List<Lab> getLabScoreList(@Param("username") String username, @Param("courseId") Integer courseId);
 }

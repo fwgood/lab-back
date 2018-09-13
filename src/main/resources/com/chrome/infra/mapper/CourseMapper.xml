@@ -16,7 +16,7 @@
   </resultMap>
 
 
-  <select id="selectCourseList" resultMap="course">
+  <select id="selectCourseList" resultType="course">
               select c.*
     FROM course c,selectcourse sc
     where sc.user_name=#{username}
@@ -25,7 +25,7 @@
 
 
   </select>
-  <select id="selectStateCourse" resultMap="course">
+  <select id="selectStateCourse" resultType="course">
               select c.course_id,
               c.course_name,
               c.course_content,

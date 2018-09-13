@@ -29,6 +29,6 @@ public class Md5TokenGenerator implements TokenGenerator {
   }
 
     public static void main(String[] args) {
-        System.out.println(new Md5TokenGenerator().passwordMd5("cc"));
+        System.out.println(new Md5TokenGenerator().passwordMd5("2"));
     }
 }

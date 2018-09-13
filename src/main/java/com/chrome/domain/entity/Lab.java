@@ -24,6 +24,16 @@ public class Lab {
 
     @Column(name = "course_id")
     private Integer courseId;
+    @Transient
+    private UserLab userLab;
+
+    public UserLab getUserLab() {
+        return userLab;
+    }
+
+    public void setUserLab(UserLab userLab) {
+        this.userLab = userLab;
+    }
 
     /**
      * @return lab_id

@@ -30,7 +30,7 @@ public class CourseController {
 
 
 
-    @ApiOperation("获取当前用户课程列表")
+    @ApiOperation("学生获取当前用户课程列表")
     @RequestMapping(value = "/courseList", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<List<Course>> getCourseList(HttpServletRequest request) {

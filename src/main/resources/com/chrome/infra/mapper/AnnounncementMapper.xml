@@ -7,7 +7,7 @@
     -->
     <id column="announncement_id" jdbcType="INTEGER" property="announncementId" />
     <result column="announncement_content" jdbcType="VARCHAR" property="announncementContent" />
-    <result column="announncement_time" jdbcType="CHAR" property="announncementTime" />
+    <result column="announncement_time" jdbcType="VARCHAR" property="announncementTime" />
     <result column="announncement_type" jdbcType="CHAR" property="announncementType" />
     <result column="announncement_course_id" jdbcType="INTEGER" property="announncementCourseId" />
     <result column="announncement_title" jdbcType="VARCHAR" property="announncementTitle" />

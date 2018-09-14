@@ -41,7 +41,7 @@ public class CourseController {
 
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
         User user = userService.selectByUsername(username);
-        if(user.getUserRole()!="1"){
+        if(Integer.parseInt(user.getUserRole())!=1){
         List<Course> list= courseService.selectCourseList(username);
         return new ResponseEntity<>(list,HttpStatus.OK);
         }else{

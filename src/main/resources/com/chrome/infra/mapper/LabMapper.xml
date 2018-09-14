@@ -19,8 +19,8 @@
     <result column="lab_name" jdbcType="VARCHAR" property="labName" />
     <result column="lab_content" jdbcType="VARCHAR" property="labContent" />
     <result column="lab_url" jdbcType="VARCHAR" property="labUrl" />
-    <result column="lab_starttime" jdbcType="CHAR" property="labStarttime" />
-    <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
+    <result column="lab_starttime" jdbcType="VARCHAR" property="labStarttime" />
+    <result column="lab_deadline" jdbcType="VARCHAR" property="labDeadline" />
     <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
       <result property="score" jdbcType="INTEGER" column="score"/>
   </resultMap>

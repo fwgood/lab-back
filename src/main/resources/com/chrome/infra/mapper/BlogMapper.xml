@@ -8,8 +8,12 @@
     <id column="blog_id" jdbcType="INTEGER" property="blogId" />
     <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
     <result column="blog_content" jdbcType="VARCHAR" property="blogContent" />
-    <result column="blog_time" jdbcType="CHAR" property="blogTime" />
+    <result column="blog_time" jdbcType="VARCHAR" property="blogTime" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
   </resultMap>
+
+  <select id="getBlogList" resultType="blog">
+    select * from blog b order by b.blog_time
+  </select>
 </mapper>

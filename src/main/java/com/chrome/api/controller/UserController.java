@@ -108,7 +108,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("更改用户信息")
+    @ApiOperation("当前用户更改用户信息")
     @RequestMapping(value = "updateUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> updateUser(HttpServletRequest request,
@@ -119,6 +119,28 @@ public class UserController {
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         String userPassword = tokenGenerator.passwordMd5(password);
         userService.updateUser(username,userPassword,avater,phone);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("管理员添加用户")
+    @RequestMapping(value = "addUser", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> addUser(HttpServletRequest request,
+                                             @RequestBody User user) {
+
+        user.setUserPassword(tokenGenerator.passwordMd5(user.getUserPassword()));
+        userService.addUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("管理员删除用户")
+    @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> deleteUser(HttpServletRequest request,
+                                          @RequestBody Integer userId) {
+
+
+        userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

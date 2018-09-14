@@ -35,10 +35,12 @@
               c.course_state,
               c.term
     FROM course c
-    where c.course_state=1
-      <if test="param != null">
-          AND  c.course_name LIKE concat('%',#{param},'%')
-      </if>
+    where NOT exists (
+      select selectcourse.course_id from selectcourse where c.user_name = selectcourse.user_name
+			and c.user_name =#{username}
+
+      )
+      AND c.course_state=1
 
 
 

@@ -3,7 +3,13 @@ package com.chrome.api.service.impl;
 import java.util.List;
 
 import com.chrome.api.service.UserService;
+import com.chrome.domain.entity.Selectcourse;
+import com.chrome.domain.entity.Startcourse;
 import com.chrome.domain.entity.User;
+import com.chrome.domain.entity.UserLab;
+import com.chrome.infra.mapper.SelectcourseMapper;
+import com.chrome.infra.mapper.StartcourseMapper;
+import com.chrome.infra.mapper.UserLabMapper;
 import com.chrome.infra.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SelectcourseMapper selectcourseMapper;
+    @Autowired
+    private StartcourseMapper startcourseMapper;
+    @Autowired
+    private UserLabMapper userLabMapper;
 
 //登陆
     @Override
@@ -53,6 +65,30 @@ public class UserServiceImpl implements UserService {
         user1.setUserAvatar(avater);
         user1.setUserPhone(phone);
         userMapper.updateByPrimaryKeySelective(user1);
+
+    }
+
+    @Override
+    public void addUser(User user) {
+        userMapper.insertSelective(user);
+
+    }
+
+    @Override
+    public void deleteUser(Integer userId) {
+        userMapper.deleteByPrimaryKey(userId);
+        Selectcourse selectcourse =new Selectcourse();
+        selectcourse.setUserId(userId);
+        selectcourseMapper.delete(selectcourse);
+        Startcourse startcourse =new Startcourse();
+        startcourse.setUserId(userId);
+        startcourseMapper.delete(startcourse);
+        UserLab userLab =new UserLab();
+        userLab.setUserId(userId);
+        userLabMapper.delete(userLab);
+
+        //博客添加后 需级联删除
+
 
     }
 }

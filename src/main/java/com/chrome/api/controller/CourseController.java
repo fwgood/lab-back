@@ -45,9 +45,9 @@ public class CourseController {
     @ApiOperation("学生选课课程列表")
     @RequestMapping(value = "/stateCourseList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Course>> selectStateCourse(@RequestParam(required = false) String param) {
-
-        List<Course> list=courseService.selectStateCourse(param);
+    public ResponseEntity<List<Course>> selectStateCourse(HttpServletRequest request,@RequestParam(required = false) String param) {
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        List<Course> list=courseService.selectStateCourse(param,username);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 

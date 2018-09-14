@@ -23,4 +23,8 @@ public interface UserService {
 
 
     void updateUser(String username, String userPassword, String avater, String phone);
+
+    void addUser(User user);
+
+    void deleteUser(Integer userId);
 }

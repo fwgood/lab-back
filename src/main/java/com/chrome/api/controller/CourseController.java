@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import com.chrome.api.service.CourseService;
+import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Course;
+import com.chrome.domain.entity.User;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.interceptor.AuthorizationInterceptor;
 import io.swagger.annotations.ApiOperation;
@@ -27,17 +29,26 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private UserService userService;
 
 
 
-    @ApiOperation("学生获取当前用户课程列表")
+    @ApiOperation("获取当前用户课程列表")
     @RequestMapping(value = "/courseList", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<List<Course>> getCourseList(HttpServletRequest request) {
 
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
+        User user = userService.selectByUsername(username);
+        if(user.getUserRole()!="1"){
         List<Course> list= courseService.selectCourseList(username);
         return new ResponseEntity<>(list,HttpStatus.OK);
+        }else{
+            List<Course> list= courseService.startCourse(username);
+            return new ResponseEntity<>(list,HttpStatus.OK);
+        }
+
     }
 
 

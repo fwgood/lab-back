@@ -45,7 +45,7 @@ public class AnnoController {
     }
 
     @ApiOperation("发布公告")
-    @RequestMapping(value = "/publishAnno", method = RequestMethod.GET)
+    @RequestMapping(value = "/publishAnno", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<Object> publishAnno(HttpServletRequest request, @RequestBody Announncement announncement) {
 

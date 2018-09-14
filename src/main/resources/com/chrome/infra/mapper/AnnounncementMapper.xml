@@ -15,7 +15,7 @@
   </resultMap>
 
   <select id="getAnnoList" resultType="announncement">
-    select distinct *
+    select distinct a.*
     from announncement a,selectcourse s
     where s.username=#{username}
     and s.course_id=a.announncement_course_id

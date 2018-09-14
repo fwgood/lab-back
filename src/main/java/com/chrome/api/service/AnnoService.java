@@ -12,4 +12,6 @@ import com.chrome.domain.entity.Announncement;
  */
 public interface AnnoService {
     List<Announncement> getAnnoList(String username);
+
+    void publishAnno(String username, Announncement announncement);
 }

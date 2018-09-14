@@ -132,9 +132,9 @@ public class CourseServiceImpl implements CourseService {
             Selectcourse selectcourse =new Selectcourse();
             selectcourse.setCourseId(courseId);
             selectcourseMapper.delete(selectcourse);
-            Startcourse startcourse =new Startcourse();
+            /*Startcourse startcourse =new Startcourse();
             startcourse.setCourseId(courseId);
-            startcourseMapper.delete(startcourse);
+            startcourseMapper.delete(startcourse);*/
             UserLab userLab=new UserLab();
             userLab.setCourseId(courseId);
             userLabMapper.delete(userLab);

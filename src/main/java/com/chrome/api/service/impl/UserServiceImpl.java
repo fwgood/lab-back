@@ -3,14 +3,8 @@ package com.chrome.api.service.impl;
 import java.util.List;
 
 import com.chrome.api.service.UserService;
-import com.chrome.domain.entity.Selectcourse;
-import com.chrome.domain.entity.Startcourse;
-import com.chrome.domain.entity.User;
-import com.chrome.domain.entity.UserLab;
-import com.chrome.infra.mapper.SelectcourseMapper;
-import com.chrome.infra.mapper.StartcourseMapper;
-import com.chrome.infra.mapper.UserLabMapper;
-import com.chrome.infra.mapper.UserMapper;
+import com.chrome.domain.entity.*;
+import com.chrome.infra.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private StartcourseMapper startcourseMapper;
     @Autowired
     private UserLabMapper userLabMapper;
+    @Autowired
+    private AnnounncementMapper announncementMapper;
 
 //登陆
     @Override
@@ -86,7 +82,9 @@ public class UserServiceImpl implements UserService {
         UserLab userLab =new UserLab();
         userLab.setUserId(userId);
         userLabMapper.delete(userLab);
-
+        Announncement announncement=new Announncement();
+        announncement.setAnnounncementUserId(userId);
+        announncementMapper.delete(announncement);
         //博客添加后 需级联删除
 
 

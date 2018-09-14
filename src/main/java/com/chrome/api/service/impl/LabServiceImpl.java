@@ -67,4 +67,13 @@ public class LabServiceImpl implements LabService {
             return true;
         }
     }
+
+    @Override
+    public List<Lab> getLabList(Integer courseId) {
+        Lab lab=new Lab();
+        lab.setCourseId(courseId);
+
+        return labMapper.select(lab);
+
+    }
 }

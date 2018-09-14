@@ -35,7 +35,7 @@
         <sqlMapGenerator targetPackage="com.chrome.infra.mapper" targetProject="src/main/resources"/>
         <javaClientGenerator targetPackage="com.chrome.infra.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
-        <table tableName="lab">
+        <table tableName="blog">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" />
             <!--oracle 配置-->

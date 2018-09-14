@@ -16,6 +16,12 @@ public class Blog {
     @Column(name = "blog_time")
     private String blogTime;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
+    @Column(name = "user_nickname")
+    private String userNickname;
+
     /**
      * @return blog_id
      */
@@ -70,5 +76,33 @@ public class Blog {
      */
     public void setBlogTime(String blogTime) {
         this.blogTime = blogTime;
+    }
+
+    /**
+     * @return user_id
+     */
+    public Integer getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     */
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * @return user_nickname
+     */
+    public String getUserNickname() {
+        return userNickname;
+    }
+
+    /**
+     * @param userNickname
+     */
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
     }
 }

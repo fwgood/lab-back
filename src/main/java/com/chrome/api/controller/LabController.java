@@ -72,6 +72,13 @@ public class LabController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+    @ApiOperation("老师查看课程下实验列表")
+    @RequestMapping(value = "/labList", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> getLabList(@RequestParam Integer userId,@RequestParam Integer courseId) {
+        List<Lab> list= labService.getLabList(courseId);
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
 
 
 }

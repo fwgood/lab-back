@@ -17,9 +17,10 @@
   <select id="getAnnoList" resultType="announncement">
     select distinct a.*
     from announncement a,selectcourse s
-    where s.username=#{username}
+    where s.user_name=#{username}
     and s.course_id=a.announncement_course_id
     or a.announncement_course_id=0
+    order by a.announncement_time
 
 
   </select>

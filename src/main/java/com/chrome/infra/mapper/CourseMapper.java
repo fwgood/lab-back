@@ -14,5 +14,5 @@ public interface CourseMapper extends MyMapper<Course> {
 
           List<Course> selectCourseList(@Param("username") String username);
 
-    List<Course> selectStateCourse(@Param("param") String param);
+    List<Course> selectStateCourse(@Param("param") String param, @Param("username") String username);
 }

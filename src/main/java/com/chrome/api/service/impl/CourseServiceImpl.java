@@ -86,8 +86,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectStateCourse(String param) {
-       return courseMapper.selectStateCourse(param);
+    public List<Course> selectStateCourse(String param, String username) {
+       return courseMapper.selectStateCourse(param,username);
 
     }
 

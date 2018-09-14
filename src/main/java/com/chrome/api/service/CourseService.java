@@ -21,7 +21,7 @@ public interface CourseService {
 
     Boolean selectCourse(String username, String password,Integer courseId);
 
-    List<Course> selectStateCourse(String param);
+    List<Course> selectStateCourse(String param, String username);
 
     boolean deleteCourse(Integer courseState, Integer courseId);
 

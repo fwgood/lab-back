@@ -86,6 +86,16 @@ public class CourseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation("老师查看已开课程列表")
+    @RequestMapping(value = "/startCourse", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> startCourse(HttpServletRequest request,@RequestBody Course course) {
+
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        List<Course> list = courseService.startCourse(username);
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
 
     @ApiOperation("管理员获取所有用户课程列表")
     @RequestMapping(value = "/allCourseList", method = RequestMethod.POST)

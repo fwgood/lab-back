@@ -13,4 +13,14 @@
     <result column="announncement_title" jdbcType="VARCHAR" property="announncementTitle" />
     <result column="announncement_user_id" jdbcType="INTEGER" property="announncementUserId" />
   </resultMap>
+
+  <select id="getAnnoList" resultType="announncement">
+    select distinct *
+    from announncement a,selectcourse s
+    where s.username=#{username}
+    and s.course_id=a.announncement_course_id
+    or a.announncement_course_id=0
+
+
+  </select>
 </mapper>

@@ -145,4 +145,11 @@ public class CourseServiceImpl implements CourseService {
         }
 
     }
+
+    @Override
+    public List<Course> startCourse(String username) {
+        Course course =new Course();
+        course.setUserName(username);
+      return   courseMapper.select(course);
+    }
 }

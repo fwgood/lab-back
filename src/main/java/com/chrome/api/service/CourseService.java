@@ -28,4 +28,6 @@ public interface CourseService {
     boolean checkCourse(Integer courseState, Integer courseId);
 
     boolean dropCourse(String username, Integer courseId);
+
+    List<Course> startCourse(String username);
 }

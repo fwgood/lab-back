@@ -59,6 +59,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Blogsreview> getComments(Integer parentId) {
-       return blogsreviewMapper.getComments(parentId);
+        Blogsreview blogsreview =new Blogsreview();
+        blogsreview.setBlogsreviewParentid(parentId);
+       return blogsreviewMapper.select(blogsreview);
     }
 }

@@ -34,15 +34,13 @@ public class BlogController {
     private BlogsreviewService blogsreviewService;
 
 
-
-
     @ApiOperation("查询所有博客按courseId查询")
     @RequestMapping(value = "/blogList", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<List<Blog>> getBlogList(@RequestParam Integer courseId) {
 
-        List<Blog> list= blogService.getBlogList(courseId);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        List<Blog> list = blogService.getBlogList(courseId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @ApiOperation("查询所有博客按当前用户")
@@ -51,36 +49,36 @@ public class BlogController {
     public ResponseEntity<List<Blog>> getUserBlogList(HttpServletRequest request) {
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
 
-        List<Blog> list= blogService.getUserBlogList(username);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        List<Blog> list = blogService.getUserBlogList(username);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @ApiOperation("当前用户发布博客")
     @RequestMapping(value = "/publishBlog", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Object> publishBlog(HttpServletRequest request,@RequestBody Blog blog) {
+    public ResponseEntity<Object> publishBlog(HttpServletRequest request, @RequestBody Blog blog) {
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
 
-        blogService.publishBlog(username,blog);
+        blogService.publishBlog(username, blog);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ApiOperation("当前用户发表评论")
     @RequestMapping(value = "/publishComment", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Object> publishComment(HttpServletRequest request,@RequestBody Blogsreview blogsreview) {
+    public ResponseEntity<Object> publishComment(HttpServletRequest request, @RequestBody Blogsreview blogsreview) {
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
 
-        blogService.publishComment(username,blogsreview);
+        blogService.publishComment(username, blogsreview);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
- /*   @ApiOperation("获取当前内容下的所有评论")
+    @ApiOperation("获取当前内容下的所有评论")
     @RequestMapping(value = "/publishComment", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Blogsreview>> getComments(HttpServletRequest request,@RequestParam Integer parentId) {
-        List<Blogsreview> list=blogService.getComments(parentId);
+    public ResponseEntity<List<Blogsreview>> getComments(@RequestParam Integer parentId) {
+        List<Blogsreview> list = blogService.getComments(parentId);
 
-        return new ResponseEntity<>(list,HttpStatus.OK);
-    }*/
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

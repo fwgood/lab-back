@@ -73,11 +73,13 @@ public class CourseServiceImpl implements CourseService {
             List<Lab> labs = labService.selectLabListOnCourse(courseId);
             for (Lab l:labs) {
                 userLab =new UserLab();
-                userLab.setId(user.getUserId());
+                userLab.setUserId(user.getUserId());
                 userLab.setUserName(user.getUserName());
                 userLab.setLabId(l.getLabId());
                 userLab.setLabName(l.getLabName());
-                userLabMapper.insert(userLab);
+                userLab.setCourseId(courseId);
+                int insert = userLabMapper.insert(userLab);
+                System.out.println("插入了"+insert+"数据");
             }
             return true;
         }else{

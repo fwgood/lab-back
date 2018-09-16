@@ -6,6 +6,7 @@ import java.util.List;
 import com.chrome.api.service.BlogService;
 import com.chrome.api.service.BlogsreviewService;
 import com.chrome.domain.entity.Blog;
+import com.chrome.domain.entity.Blogsreview;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.interceptor.AuthorizationInterceptor;
 import io.swagger.annotations.ApiOperation;
@@ -62,5 +63,24 @@ public class BlogController {
 
         blogService.publishBlog(username,blog);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("当前用户发表评论")
+    @RequestMapping(value = "/publishComment", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> publishComment(HttpServletRequest request,@RequestBody Blogsreview blogsreview) {
+        String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
+
+        blogService.publishComment(username,blogsreview);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("获取当前内容下的所有评论")
+    @RequestMapping(value = "/publishComment", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<List<Blogsreview>> getComments(HttpServletRequest request,@RequestParam Integer parentId) {
+        List<Blogsreview> list=blogService.getComments(parentId);
+
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }

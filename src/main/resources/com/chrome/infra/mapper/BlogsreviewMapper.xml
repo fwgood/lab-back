@@ -11,4 +11,9 @@
     <result column="blogsreview_time" jdbcType="TIMESTAMP" property="blogsreviewTime" />
     <result column="blogsreview_parentid" jdbcType="INTEGER" property="blogsreviewParentid" />
   </resultMap>
+
+  <select id="getComments" resultType="blogsreview">
+
+
+  </select>
 </mapper>

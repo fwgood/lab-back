@@ -74,7 +74,7 @@ public class BlogController {
     }
 
     @ApiOperation("获取当前内容下的所有评论")
-    @RequestMapping(value = "/publishComment", method = RequestMethod.POST)
+    @RequestMapping(value = "/getComments", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<List<Blogsreview>> getComments(@RequestParam Integer parentId) {
         List<Blogsreview> list = blogService.getComments(parentId);

@@ -78,8 +78,9 @@ public class LabController {
     @ApiOperation("老师给学生实验批改成绩")
     @RequestMapping(value = "/addLabScore", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Object> addLab(@RequestParam Integer userId,@RequestParam Integer labId,@RequestParam Float score) {
-        if(labService.addLabScore(userId,labId,score)) {
+    public ResponseEntity<Object> addLabScore(@RequestParam Integer userId,@RequestParam Integer labId,@RequestParam Integer score) {
+
+        if(labService.addLabScore(userId,labId, Float.valueOf(score))) {
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);

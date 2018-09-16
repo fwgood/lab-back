@@ -22,6 +22,17 @@ public class Blog {
     @Column(name = "user_nickname")
     private String userNickname;
 
+    @Column(name = "course_id")
+    private Integer courseId;
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
     /**
      * @return blog_id
      */

@@ -12,6 +12,8 @@
     <result column="lab_name" jdbcType="VARCHAR" property="labName" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="commit_url" jdbcType="VARCHAR" property="commitUrl" />
+    <result column="commit_content" jdbcType="VARCHAR" property="commitContent" />
   </resultMap>
 
   <select id="selectLabList" resultMap="userLab">

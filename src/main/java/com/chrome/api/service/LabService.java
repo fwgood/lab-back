@@ -27,4 +27,6 @@ public interface LabService {
     boolean addLabScore(Integer userId, Integer labId, Float score);
 
     List<Lab> getLabList(Integer courseId);
+
+    void labCommit(String username, Integer labId, String commitUrl, String commitContent);
 }

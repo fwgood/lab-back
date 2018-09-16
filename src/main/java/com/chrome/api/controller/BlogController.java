@@ -13,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created with IDEA
@@ -37,12 +35,12 @@ public class BlogController {
 
 
 
-    @ApiOperation("查询所有博客按时间")
+    @ApiOperation("查询所有博客按courseId查询")
     @RequestMapping(value = "/blogList", method = RequestMethod.GET)
     @AuthToken
-    public ResponseEntity<List<Blog>> getBlogList() {
+    public ResponseEntity<List<Blog>> getBlogList(@RequestParam Integer courseId) {
 
-        List<Blog> list= blogService.getBlogList();
+        List<Blog> list= blogService.getBlogList(courseId);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
@@ -54,5 +52,15 @@ public class BlogController {
 
         List<Blog> list= blogService.getUserBlogList(username);
         return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    @ApiOperation("当前用户发布博客")
+    @RequestMapping(value = "/publishBlog", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> publishBlog(HttpServletRequest request,@RequestBody Blog blog) {
+        String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
+
+        blogService.publishBlog(username,blog);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

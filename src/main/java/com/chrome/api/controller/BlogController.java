@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import com.chrome.api.service.BlogService;
+import com.chrome.api.service.BlogsreviewService;
 import com.chrome.domain.entity.Blog;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.interceptor.AuthorizationInterceptor;
@@ -28,6 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlogController {
     @Autowired
     private BlogService blogService;
+
+
+    @Autowired
+    private BlogsreviewService blogsreviewService;
 
 
 

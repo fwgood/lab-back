@@ -51,7 +51,7 @@ public class LabController {
    @ApiOperation("学生提交实验")
     @RequestMapping(value = "/labCommit", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Object> labCommit(HttpServletRequest request, @RequestParam Integer labId, @RequestParam String commitUrl,@RequestParam String commitContent) {
+    public ResponseEntity<Object> labCommit(HttpServletRequest request, @RequestParam Integer labId, @RequestBody String commitUrl,@RequestBody String commitContent) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
        labService.labCommit(username,labId,commitUrl,commitContent);

@@ -3,6 +3,7 @@ package com.chrome.api.service;
 import java.util.List;
 
 import com.chrome.domain.entity.Blog;
+import com.chrome.domain.entity.Blogsreview;
 
 /**
  * Created with IDEA
@@ -16,4 +17,8 @@ public interface BlogService {
     List<Blog> getUserBlogList(String username);
 
     void publishBlog(String username, Blog blog);
+
+    void publishComment(String username, Blogsreview blogsreview);
+
+    List<Blogsreview> getComments(Integer parentId);
 }

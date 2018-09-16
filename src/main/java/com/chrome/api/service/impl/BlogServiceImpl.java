@@ -5,8 +5,10 @@ import java.util.List;
 import com.chrome.api.service.BlogService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Blog;
+import com.chrome.domain.entity.Blogsreview;
 import com.chrome.domain.entity.User;
 import com.chrome.infra.mapper.BlogMapper;
+import com.chrome.infra.mapper.BlogsreviewMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private BlogsreviewMapper blogsreviewMapper;
     @Override
     public List<Blog> getBlogList(Integer courseId) {
         return blogMapper.getBlogList(courseId);
@@ -44,5 +48,17 @@ public class BlogServiceImpl implements BlogService {
         blog.setUserNickname(user.getUserNickname());
         blog.setUserId(user.getUserId());
         blogMapper.insertSelective(blog);
+    }
+
+    @Override
+    public void publishComment(String username, Blogsreview blogsreview) {
+        User user = userService.selectByUsername(username);
+        blogsreview.setBlogsreviewUserid(user.getUserId());
+        blogsreviewMapper.insertSelective(blogsreview);
+    }
+
+    @Override
+    public List<Blogsreview> getComments(Integer parentId) {
+       return blogsreviewMapper.getComments(parentId);
     }
 }

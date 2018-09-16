@@ -23,8 +23,8 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private UserService userService;
     @Override
-    public List<Blog> getBlogList() {
-        return blogMapper.getBlogList();
+    public List<Blog> getBlogList(Integer courseId) {
+        return blogMapper.getBlogList(courseId);
     }
 
     @Override
@@ -36,5 +36,13 @@ public class BlogServiceImpl implements BlogService {
       return   blogMapper.select(blog);
 
 
+    }
+
+    @Override
+    public void publishBlog(String username, Blog blog) {
+        User user = userService.selectByUsername(username);
+        blog.setUserNickname(user.getUserNickname());
+        blog.setUserId(user.getUserId());
+        blogMapper.insertSelective(blog);
     }
 }

@@ -22,6 +22,25 @@ public class LabScoreDto {
 
     private Float   score;
 
+    private String commitUrl;
+
+    private String commitContent;
+
+    public String getCommitUrl() {
+        return commitUrl;
+    }
+
+    public void setCommitUrl(String commitUrl) {
+        this.commitUrl = commitUrl;
+    }
+
+    public String getCommitContent() {
+        return commitContent;
+    }
+
+    public void setCommitContent(String commitContent) {
+        this.commitContent = commitContent;
+    }
 
     public Integer getLabId() {
         return labId;

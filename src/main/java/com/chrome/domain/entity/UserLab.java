@@ -25,6 +25,28 @@ public class UserLab {
     @Column(name = "course_id")
     private Integer courseId;
 
+    @Column(name = "commit_url")
+    private String commitUrl;
+
+    @Column(name = "commit_content")
+    private String commitContent;
+
+    public String getCommitContent() {
+        return commitContent;
+    }
+
+    public void setCommitContent(String commitContent) {
+        this.commitContent = commitContent;
+    }
+
+    public String getCommitUrl() {
+        return commitUrl;
+    }
+
+    public void setCommitUrl(String commitUrl) {
+        this.commitUrl = commitUrl;
+    }
+
     public Integer getCourseId() {
         return courseId;
     }

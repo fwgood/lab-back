@@ -38,21 +38,6 @@ public class LabController {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }*/
 
-    @ApiOperation("老师获取当前实验下的所有学生成绩信息")
-    @RequestMapping(value = "/scoreList", method = RequestMethod.GET)
-    @AuthToken
-    public ResponseEntity<List<UserLab>> getScoreList(@RequestParam Integer labId) {
-        List<UserLab> list= labService.getScoreList(labId);
-        return new ResponseEntity<>(list,HttpStatus.OK);
-    }
-    @ApiOperation("老师在选中课程下添加实验")
-    @RequestMapping(value = "/addLab", method = RequestMethod.POST)
-    @AuthToken
-    public ResponseEntity<List<UserLab>> addLab(@RequestBody Lab lab) {
-        labService.addLab(lab);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @ApiOperation("学生获取当前用户某课程下实验及成绩列表")
     @RequestMapping(value = "/labScoreList", method = RequestMethod.GET)
     @AuthToken
@@ -61,6 +46,33 @@ public class LabController {
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         List<Lab> list= labService.getLabScoreList(username,courseId);
         return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+   @ApiOperation("学生提交实验")
+    @RequestMapping(value = "/labCommit", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> labCommit(HttpServletRequest request, @RequestParam Integer labId, @RequestParam String commitUrl,@RequestParam String commitContent) {
+
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+       labService.labCommit(username,labId,commitUrl,commitContent);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @ApiOperation("老师获取当前实验下的所有学生成绩信息")
+    @RequestMapping(value = "/scoreList", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<List<UserLab>> getScoreList(@RequestParam Integer labId) {
+        List<UserLab> list= labService.getScoreList(labId);
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    @ApiOperation("老师在选中课程下添加实验")
+    @RequestMapping(value = "/addLab", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<List<UserLab>> addLab(@RequestBody Lab lab) {
+        labService.addLab(lab);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     @ApiOperation("老师给学生实验批改成绩")
     @RequestMapping(value = "/addLabScore", method = RequestMethod.POST)

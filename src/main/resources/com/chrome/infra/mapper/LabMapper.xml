@@ -23,6 +23,8 @@
     <result column="lab_deadline" jdbcType="VARCHAR" property="labDeadline" />
     <result column="lab_deadline" jdbcType="CHAR" property="labDeadline" />
       <result property="score" jdbcType="INTEGER" column="score"/>
+    <result property="commitUrl" jdbcType="INTEGER" column="commit_url"/>
+    <result property="commitContent" jdbcType="INTEGER" column="commit_content"/>
   </resultMap>
 
 
@@ -44,7 +46,9 @@
      l.lab_url,
      l.lab_starttime,
      l.lab_deadline,
-     ul.score
+     ul.score,
+     ul.commit_url,
+     ul.commit_content
     FROM user_lab ul,lab l
     where ul.user_name=#{username}
     AND l.course_id = #{courseId}

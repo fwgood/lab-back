@@ -11,7 +11,9 @@ import com.chrome.domain.entity.Blog;
  * Time:15:43
  */
 public interface BlogService {
-    List<Blog> getBlogList();
+    List<Blog> getBlogList(Integer courseId);
 
     List<Blog> getUserBlogList(String username);
+
+    void publishBlog(String username, Blog blog);
 }

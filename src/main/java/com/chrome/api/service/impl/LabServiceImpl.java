@@ -3,6 +3,7 @@ package com.chrome.api.service.impl;
 import java.util.List;
 
 import com.chrome.api.service.LabService;
+import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Lab;
 import com.chrome.domain.entity.UserLab;
 import com.chrome.infra.mapper.LabMapper;
@@ -22,6 +23,8 @@ public class LabServiceImpl implements LabService {
     private LabMapper labMapper;
     @Autowired
     private UserLabMapper userLabMapper;
+    @Autowired
+    private UserService userService ;
    /* @Override
     public List<Lab> selectLabList(String username, Integer courseId) {
         return labMapper.selectLabList(username,courseId);
@@ -74,6 +77,18 @@ public class LabServiceImpl implements LabService {
         lab.setCourseId(courseId);
 
         return labMapper.select(lab);
+
+    }
+
+    @Override
+    public void labCommit(String username, Integer labId, String commitUrl, String commitContent) {
+        UserLab userLab =new UserLab();
+        userLab.setUserName(username);
+        userLab.setLabId(labId);
+        UserLab userLab1 = userLabMapper.selectOne(userLab);
+        userLab1.setCommitUrl(commitUrl);
+        userLab1.setCommitContent(commitContent);
+        userLabMapper.updateByPrimaryKeySelective(userLab1);
 
     }
 }

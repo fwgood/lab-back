@@ -3,6 +3,7 @@ package com.chrome.api.controller;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import com.chrome.api.dto.CommitLabDto;
 import com.chrome.api.service.LabService;
 import com.chrome.domain.entity.Lab;
 import com.chrome.domain.entity.UserLab;
@@ -51,10 +52,10 @@ public class LabController {
    @ApiOperation("学生提交实验")
     @RequestMapping(value = "/labCommit", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Object> labCommit(HttpServletRequest request, @RequestParam Integer labId, @RequestBody String commitUrl,@RequestBody String commitContent) {
+    public ResponseEntity<Object> labCommit(HttpServletRequest request, @RequestBody CommitLabDto commitLabDto) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-       labService.labCommit(username,labId,commitUrl,commitContent);
+       labService.labCommit(username,commitLabDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

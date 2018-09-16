@@ -2,6 +2,7 @@ package com.chrome.api.service.impl;
 
 import java.util.List;
 
+import com.chrome.api.dto.CommitLabDto;
 import com.chrome.api.service.LabService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Lab;
@@ -81,13 +82,13 @@ public class LabServiceImpl implements LabService {
     }
 
     @Override
-    public void labCommit(String username, Integer labId, String commitUrl, String commitContent) {
+    public void labCommit(String username, CommitLabDto commitLabDto) {
         UserLab userLab =new UserLab();
         userLab.setUserName(username);
-        userLab.setLabId(labId);
+        userLab.setLabId(commitLabDto.getLabId());
         UserLab userLab1 = userLabMapper.selectOne(userLab);
-        userLab1.setCommitUrl(commitUrl);
-        userLab1.setCommitContent(commitContent);
+        userLab1.setCommitUrl(commitLabDto.getCommitUrl());
+        userLab1.setCommitContent(commitLabDto.getCommitContent());
         userLabMapper.updateByPrimaryKeySelective(userLab1);
 
     }

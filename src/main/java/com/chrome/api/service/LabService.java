@@ -2,6 +2,7 @@ package com.chrome.api.service;
 
 import java.util.List;
 
+import com.chrome.api.dto.CommitLabDto;
 import com.chrome.domain.entity.Lab;
 import com.chrome.domain.entity.UserLab;
 
@@ -28,5 +29,6 @@ public interface LabService {
 
     List<Lab> getLabList(Integer courseId);
 
-    void labCommit(String username, Integer labId, String commitUrl, String commitContent);
+
+    void labCommit(String username, CommitLabDto commitLabDto);
 }

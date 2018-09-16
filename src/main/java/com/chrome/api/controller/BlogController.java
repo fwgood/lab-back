@@ -75,12 +75,12 @@ public class BlogController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("获取当前内容下的所有评论")
+ /*   @ApiOperation("获取当前内容下的所有评论")
     @RequestMapping(value = "/publishComment", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<List<Blogsreview>> getComments(HttpServletRequest request,@RequestParam Integer parentId) {
         List<Blogsreview> list=blogService.getComments(parentId);
 
         return new ResponseEntity<>(list,HttpStatus.OK);
-    }
+    }*/
 }

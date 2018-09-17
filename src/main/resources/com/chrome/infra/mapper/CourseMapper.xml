@@ -36,7 +36,7 @@
         c.term
         FROM course c
         where
-        NOT exists (
+         NOT exists (
         select selectcourse.course_id from selectcourse where c.user_name = selectcourse.user_name
         and c.user_name =#{username}
         )

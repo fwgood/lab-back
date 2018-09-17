@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chrome.infra.mapper.CourseMapper">
-  <resultMap id="course" type="com.chrome.domain.entity.Course">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
-    <result column="course_content" jdbcType="VARCHAR" property="courseContent" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="course_state" jdbcType="INTEGER" property="courseState" />
-    <result column="course_password" jdbcType="VARCHAR" property="coursePassword" />
-    <result column="term" jdbcType="VARCHAR" property="term" />
-  </resultMap>
+    <resultMap id="course" type="com.chrome.domain.entity.Course">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="course_id" jdbcType="INTEGER" property="courseId"/>
+        <result column="course_name" jdbcType="VARCHAR" property="courseName"/>
+        <result column="course_content" jdbcType="VARCHAR" property="courseContent"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="course_state" jdbcType="INTEGER" property="courseState"/>
+        <result column="course_password" jdbcType="VARCHAR" property="coursePassword"/>
+        <result column="term" jdbcType="VARCHAR" property="term"/>
+    </resultMap>
 
 
-  <select id="selectCourseList" resultType="course">
+    <select id="selectCourseList" resultType="course">
               select c.*
     FROM course c,selectcourse sc
     where sc.user_name=#{username}
@@ -25,32 +25,25 @@
 
 
   </select>
-  <select id="selectStateCourse" resultType="course">
-              select c.course_id,
-              c.course_name,
-              c.course_content,
-              c.course_id,
-              c.user_id,
-              c.user_name,
-              c.course_state,
-              c.term
-    FROM course c
-    where 1=1
-      <if test="param != null">
-      AND c.course_name LIKE concat('%',#{param},'%')
-      OR c.course_content LIKE concat('%',#{param},'%')
-      OR c.user_name LIKE concat('%',#{param},'%')
-  </if>
-    NOT exists (
-      select selectcourse.course_id from selectcourse where c.user_name = selectcourse.user_name
-			and c.user_name =#{username}
-      )
-      AND c.course_state=1
+    <select id="selectStateCourse" resultType="course">
+        select c.course_id,
+        c.course_name,
+        c.course_content,
+        c.course_id,
+        c.user_id,
+        c.user_name,
+        c.course_state,
+        c.term
+        FROM course c
+        where
+         NOT exists (
+        select selectcourse.course_id from selectcourse where c.user_name = selectcourse.user_name
+        and c.user_name =#{username}
+        )
+        AND c.course_state=1
 
 
-
-
-  </select>
+    </select>
 
 
 </mapper>

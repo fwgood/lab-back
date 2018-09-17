@@ -27,4 +27,10 @@ public interface UserService {
     void addUser(User user);
 
     void deleteUser(Integer userId);
+
+    List<User> getAllUser();
+
+    void updateState(Integer userId, String role);
+
+    void regist(User user);
 }

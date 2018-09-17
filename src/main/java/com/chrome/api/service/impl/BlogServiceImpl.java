@@ -6,9 +6,12 @@ import com.chrome.api.service.BlogService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Blog;
 import com.chrome.domain.entity.Blogsreview;
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
 import com.chrome.infra.mapper.BlogMapper;
 import com.chrome.infra.mapper.BlogsreviewMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +30,11 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogsreviewMapper blogsreviewMapper;
     @Override
-    public List<Blog> getBlogList(Integer courseId) {
-        return blogMapper.getBlogList(courseId);
+    public PageInfo<Blog> getBlogList(Integer courseId, Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize());
+        List<Blog> blogList = blogMapper.getBlogList(courseId);
+        PageInfo<Blog> pageInfo = new PageInfo<>(blogList);
+        return pageInfo;
     }
 
     @Override

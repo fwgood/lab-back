@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.chrome.domain.entity.Blog;
 import com.chrome.domain.entity.Blogsreview;
+import com.chrome.domain.entity.Page;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created with IDEA
@@ -12,7 +14,7 @@ import com.chrome.domain.entity.Blogsreview;
  * Time:15:43
  */
 public interface BlogService {
-    List<Blog> getBlogList(Integer courseId);
+    PageInfo<Blog> getBlogList(Integer courseId, Page page);
 
     List<Blog> getUserBlogList(String username);
 

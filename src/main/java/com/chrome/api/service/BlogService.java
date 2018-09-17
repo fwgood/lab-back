@@ -23,4 +23,6 @@ public interface BlogService {
     void publishComment(String username, Blogsreview blogsreview);
 
     List<Blogsreview> getComments(Integer parentId);
+
+    PageInfo<Blog> searchBlog(String param, Page page);
 }

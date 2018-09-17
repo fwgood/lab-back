@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import com.chrome.api.service.BlogService;
-import com.chrome.api.service.BlogsreviewService;
 import com.chrome.domain.entity.Blog;
 import com.chrome.domain.entity.Blogsreview;
 import com.chrome.domain.entity.Page;
@@ -32,9 +31,6 @@ public class BlogController {
     private BlogService blogService;
 
 
-    @Autowired
-    private BlogsreviewService blogsreviewService;
-
 
     @ApiOperation("查询所有博客按courseId查询")
     @RequestMapping(value = "/blogList", method = RequestMethod.POST)
@@ -42,6 +38,15 @@ public class BlogController {
     public ResponseEntity<PageInfo<Blog>> getBlogList(@RequestParam Integer courseId,@RequestBody(required = false) Page page) {
 
         PageInfo<Blog> blogList = blogService.getBlogList(courseId, page);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
+    }
+
+    @ApiOperation("模糊查询搜索博客")
+    @RequestMapping(value = "/searchBlog", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<PageInfo<Blog>> searchBlog(@RequestParam String param,@RequestBody(required = false) Page page) {
+
+        PageInfo<Blog> blogList = blogService.searchBlog(param, page);
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 

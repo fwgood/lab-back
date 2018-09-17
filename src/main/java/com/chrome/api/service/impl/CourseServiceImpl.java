@@ -6,6 +6,7 @@ import com.chrome.api.service.CourseService;
 import com.chrome.api.service.LabService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.*;
+import com.chrome.infra.globalexception.CommonException;
 import com.chrome.infra.mapper.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -48,7 +49,10 @@ public class CourseServiceImpl implements CourseService {
         User user =userService.selectByUsername(username);
         course.setUserId(user.getUserId());
         course.setUserName(user.getUserName());
-        courseMapper.insert(course);
+        int insert = courseMapper.insert(course);
+        if(insert!=1){
+            throw new CommonException("error.Course.create");
+        }
 
     }
 
@@ -71,7 +75,10 @@ public class CourseServiceImpl implements CourseService {
 
         if(course.getCoursePassword().equals(password)) {
             UserLab userLab;
-            selectcourseMapper.insert(selectcourse);
+            int insert1 = selectcourseMapper.insert(selectcourse);
+            if(insert1!=1){
+                throw new CommonException("error.Selectcourse.create");
+            }
             List<Lab> labs = labService.selectLabListOnCourse(courseId);
             for (Lab l:labs) {
                 userLab =new UserLab();
@@ -81,7 +88,9 @@ public class CourseServiceImpl implements CourseService {
                 userLab.setLabName(l.getLabName());
                 userLab.setCourseId(courseId);
                 int insert = userLabMapper.insert(userLab);
-                System.out.println("插入了"+insert+"数据");
+                if(insert!=1){
+                    throw new CommonException("error.UserLab.create");
+                }
             }
             return true;
         }else{
@@ -104,6 +113,9 @@ public class CourseServiceImpl implements CourseService {
         course.setCourseState(courseState);
 
         int i = courseMapper.updateByPrimaryKeySelective(course);
+        if(i!=1){
+            throw new CommonException("error.Course.update");
+        }
         return i==1?true:false;
     }
 
@@ -115,11 +127,14 @@ public class CourseServiceImpl implements CourseService {
             selectcourse.setCourseId(courseId);
             selectcourse.setUserName(username);
         int delete = selectcourseMapper.delete(selectcourse);
-
+        if(delete!=1){
+            throw new CommonException("error.Selectcourse.delete");
+        }
         UserLab userLab=new UserLab();
             userLab.setCourseId(courseId);
             userLab.setUserName(username);
-            userLabMapper.delete(userLab);
+        int delete1 = userLabMapper.delete(userLab);
+
         return delete==1?true:false;
 
     }
@@ -128,6 +143,9 @@ public class CourseServiceImpl implements CourseService {
     public boolean deleteCourse(Integer courseState, Integer courseId) {
         if(courseState==0){
             int i = courseMapper.deleteByPrimaryKey(courseId);
+            if(i!=1){
+                throw new CommonException("error.Course.delete");
+            }
             return i==1?true:false;
 
         }else{
@@ -135,15 +153,18 @@ public class CourseServiceImpl implements CourseService {
             Lab lab=new Lab();
             lab.setCourseId(courseId);
             labMapper.delete(lab);
+
             Selectcourse selectcourse =new Selectcourse();
             selectcourse.setCourseId(courseId);
-            selectcourseMapper.delete(selectcourse);
+             selectcourseMapper.delete(selectcourse);
+
             /*Startcourse startcourse =new Startcourse();
             startcourse.setCourseId(courseId);
             startcourseMapper.delete(startcourse);*/
             UserLab userLab=new UserLab();
             userLab.setCourseId(courseId);
             userLabMapper.delete(userLab);
+
 
 
             return i==1?true:false;

@@ -8,6 +8,7 @@ import com.chrome.domain.entity.Blog;
 import com.chrome.domain.entity.Blogsreview;
 import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
+import com.chrome.infra.globalexception.CommonException;
 import com.chrome.infra.mapper.BlogMapper;
 import com.chrome.infra.mapper.BlogsreviewMapper;
 import com.github.pagehelper.PageHelper;
@@ -39,11 +40,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public PageInfo<Blog> getUserBlogList(String username, Page page) {
-        PageHelper.startPage(page.getPage(), page.getPageSize(),"blog_id "+page.getSort());
         User user = userService.selectByUsername(username);
         Blog blog=new Blog();
         blog.setUserId(user.getUserId());
         blog.setUserNickname(user.getUserNickname());
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"blog_id "+page.getSort());
         PageInfo<Blog> pageInfo = new PageInfo<>(blogMapper.select(blog));
         return pageInfo;
     }
@@ -53,14 +54,20 @@ public class BlogServiceImpl implements BlogService {
         User user = userService.selectByUsername(username);
         blog.setUserNickname(user.getUserNickname());
         blog.setUserId(user.getUserId());
-        blogMapper.insertSelective(blog);
+        int i = blogMapper.insertSelective(blog);
+        if(i!=1){
+            throw new CommonException("error.Blog.create");
+        }
     }
 
     @Override
     public void publishComment(String username, Blogsreview blogsreview) {
         User user = userService.selectByUsername(username);
         blogsreview.setBlogsreviewUserid(user.getUserId());
-        blogsreviewMapper.insertSelective(blogsreview);
+        int i = blogsreviewMapper.insertSelective(blogsreview);
+        if(i!=1){
+            throw new CommonException("error.Comment.create");
+        }
     }
 
     @Override
@@ -68,5 +75,13 @@ public class BlogServiceImpl implements BlogService {
         Blogsreview blogsreview =new Blogsreview();
         blogsreview.setBlogsreviewParentid(parentId);
        return blogsreviewMapper.select(blogsreview);
+    }
+
+    @Override
+    public PageInfo<Blog> searchBlog(String param, Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"blog_id "+page.getSort());
+        List<Blog> blogList = blogMapper.searchBlog(param);
+        PageInfo<Blog> pageInfo = new PageInfo<>(blogList);
+        return pageInfo;
     }
 }

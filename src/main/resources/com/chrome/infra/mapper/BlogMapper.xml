@@ -23,4 +23,16 @@
 
     order by b.blog_time
   </select>
+
+  <select id="searchBlog" resultType="blog">
+    SELECT * FROM blog b
+    WHERE 1=1
+    <if test="param != null">
+      AND  b.blog_title LIKE concat('%',#{param},'%')
+      OR b.blog_content LIKE concat('%',#{param},'%')
+      OR b.user_nickname LIKE concat('%',#{param},'%')
+      OR b.blog_time LIKE concat('%',#{param},'%')
+
+    </if>
+  </select>
 </mapper>

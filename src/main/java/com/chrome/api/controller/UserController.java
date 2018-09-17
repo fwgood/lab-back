@@ -115,6 +115,7 @@ public class UserController {
     public ResponseEntity<Object> regist(@RequestBody User user) {
         User user1 = userService.selectByUsername(user.getUserName());
         if(user1==null) {
+            user.setUserPassword(tokenGenerator.passwordMd5(user.getUserPassword()));
             userService.regist(user);
             return new ResponseEntity<>(HttpStatus.OK);
         }else{

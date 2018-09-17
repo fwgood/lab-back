@@ -3,6 +3,8 @@ package com.chrome.api.service;
 import java.util.List;
 
 import com.chrome.domain.entity.Course;
+import com.chrome.domain.entity.Page;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created with IDEA
@@ -12,7 +14,7 @@ import com.chrome.domain.entity.Course;
  */
 public interface CourseService {
 
-    List<Course> selectCourseList(String username);
+    PageInfo<Course> selectCourseList(String username, Page page);
 
 
     void addCourse(Course course,String username);
@@ -21,7 +23,7 @@ public interface CourseService {
 
     Boolean selectCourse(String username, String password,Integer courseId);
 
-    List<Course> selectStateCourse(String param, String username);
+    PageInfo<Course> selectStateCourse(String param, String username, Page page);
 
     boolean deleteCourse(Integer courseState, Integer courseId);
 
@@ -29,5 +31,5 @@ public interface CourseService {
 
     boolean dropCourse(String username, Integer courseId);
 
-    List<Course> startCourse(String username);
+    PageInfo<Course> startCourse(String username, Page page);
 }

@@ -2,7 +2,9 @@ package com.chrome.api.service;
 
 import java.util.List;
 
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created with IDEA
@@ -28,7 +30,7 @@ public interface UserService {
 
     void deleteUser(Integer userId);
 
-    List<User> getAllUser();
+    PageInfo<User> getAllUser(Page page);
 
     void updateState(Integer userId, String role);
 

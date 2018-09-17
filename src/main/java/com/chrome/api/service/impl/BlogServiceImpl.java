@@ -31,21 +31,21 @@ public class BlogServiceImpl implements BlogService {
     private BlogsreviewMapper blogsreviewMapper;
     @Override
     public PageInfo<Blog> getBlogList(Integer courseId, Page page) {
-        PageHelper.startPage(page.getPage(), page.getPageSize());
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"blog_id "+page.getSort());
         List<Blog> blogList = blogMapper.getBlogList(courseId);
         PageInfo<Blog> pageInfo = new PageInfo<>(blogList);
         return pageInfo;
     }
 
     @Override
-    public List<Blog> getUserBlogList(String username) {
+    public PageInfo<Blog> getUserBlogList(String username, Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"blog_id "+page.getSort());
         User user = userService.selectByUsername(username);
         Blog blog=new Blog();
         blog.setUserId(user.getUserId());
         blog.setUserNickname(user.getUserNickname());
-      return   blogMapper.select(blog);
-
-
+        PageInfo<Blog> pageInfo = new PageInfo<>(blogMapper.select(blog));
+        return pageInfo;
     }
 
     @Override

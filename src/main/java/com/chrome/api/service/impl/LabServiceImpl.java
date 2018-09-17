@@ -6,9 +6,12 @@ import com.chrome.api.dto.CommitLabDto;
 import com.chrome.api.service.LabService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Lab;
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.UserLab;
 import com.chrome.infra.mapper.LabMapper;
 import com.chrome.infra.mapper.UserLabMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +42,11 @@ public class LabServiceImpl implements LabService {
     }
 
     @Override
-    public List<UserLab> getScoreList(Integer labId) {
+    public PageInfo<UserLab> getScoreList(Integer labId, Page page) {
         UserLab userLab =new UserLab();
         userLab.setLabId(labId);
-       return  userLabMapper.select(userLab);
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"id "+page.getSort());
+        return  new PageInfo<>(userLabMapper.select(userLab));
 
     }
 

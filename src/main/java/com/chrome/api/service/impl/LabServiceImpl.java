@@ -8,6 +8,7 @@ import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Lab;
 import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.UserLab;
+import com.chrome.infra.globalexception.CommonException;
 import com.chrome.infra.mapper.LabMapper;
 import com.chrome.infra.mapper.UserLabMapper;
 import com.github.pagehelper.PageHelper;
@@ -52,7 +53,10 @@ public class LabServiceImpl implements LabService {
 
     @Override
     public void addLab(Lab lab) {
-        labMapper.insert(lab);
+        int insert = labMapper.insert(lab);
+        if(insert!=1){
+            throw new CommonException("error.Lab.create");
+        }
     }
 
     @Override
@@ -69,6 +73,9 @@ public class LabServiceImpl implements LabService {
         UserLab userLab1 = userLabMapper.selectOne(userLab);
         userLab1.setScore(score);
         int i = userLabMapper.updateByPrimaryKeySelective(userLab1);
+        if(i!=1){
+            throw new CommonException("error.UserLab.update");
+        }
         if(i!=1){
             return false;
         }else{
@@ -93,7 +100,10 @@ public class LabServiceImpl implements LabService {
         UserLab userLab1 = userLabMapper.selectOne(userLab);
         userLab1.setCommitUrl(commitLabDto.getCommitUrl());
         userLab1.setCommitContent(commitLabDto.getCommitContent());
-        userLabMapper.updateByPrimaryKeySelective(userLab1);
+        int i = userLabMapper.updateByPrimaryKeySelective(userLab1);
+        if(i!=1){
+            throw new CommonException("error.UserLab.update");
+        }
 
     }
 }

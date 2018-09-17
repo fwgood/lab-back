@@ -6,6 +6,7 @@ import com.chrome.api.service.AnnoService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Announncement;
 import com.chrome.domain.entity.User;
+import com.chrome.infra.globalexception.CommonException;
 import com.chrome.infra.mapper.AnnounncementMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class AnnoServiceImpl implements AnnoService {
     public void publishAnno(String username, Announncement announncement) {
         User user = userService.selectByUsername(username);
         announncement.setAnnounncementUserId(user.getUserId());
-        announncementMapper.insert(announncement);
+        int insert = announncementMapper.insert(announncement);
+        if(insert!=1){
+            throw new CommonException("error.Anno.create");
+        }
     }
 }

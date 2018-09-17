@@ -46,13 +46,13 @@ public class BlogController {
     }
 
     @ApiOperation("查询所有博客按当前用户")
-    @RequestMapping(value = "/userBlogList", method = RequestMethod.GET)
+    @RequestMapping(value = "/userBlogList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Blog>> getUserBlogList(HttpServletRequest request) {
+    public ResponseEntity<PageInfo<Blog>> getUserBlogList(HttpServletRequest request,@RequestBody(required = false) Page page) {
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
 
-        List<Blog> list = blogService.getUserBlogList(username);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        PageInfo<Blog> blogList = blogService.getUserBlogList(username,page);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
     @ApiOperation("当前用户发布博客")

@@ -6,9 +6,11 @@ import java.util.List;
 import com.chrome.api.service.CourseService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Course;
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.interceptor.AuthorizationInterceptor;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +37,17 @@ public class CourseController {
 
 
     @ApiOperation("获取当前用户课程列表")
-    @RequestMapping(value = "/courseList", method = RequestMethod.GET)
+    @RequestMapping(value = "/courseList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Course>> getCourseList(HttpServletRequest request) {
+    public ResponseEntity<PageInfo<Course>> getCourseList(HttpServletRequest request, @RequestBody(required = false) Page page) {
 
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
         User user = userService.selectByUsername(username);
         if(Integer.parseInt(user.getUserRole())!=1){
-        List<Course> list= courseService.selectCourseList(username);
+            PageInfo<Course> list= courseService.selectCourseList(username,page);
         return new ResponseEntity<>(list,HttpStatus.OK);
         }else{
-            List<Course> list= courseService.startCourse(username);
+            PageInfo<Course> list= courseService.startCourse(username,page);
             return new ResponseEntity<>(list,HttpStatus.OK);
         }
 
@@ -56,9 +58,9 @@ public class CourseController {
     @ApiOperation("学生选课课程列表")
     @RequestMapping(value = "/stateCourseList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Course>> selectStateCourse(HttpServletRequest request,@RequestParam(required = false) String param) {
+    public ResponseEntity<PageInfo<Course>> selectStateCourse(HttpServletRequest request,@RequestParam(required = false) String param, @RequestBody(required = false) Page page) {
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-        List<Course> list=courseService.selectStateCourse(param,username);
+        PageInfo<Course> list=courseService.selectStateCourse(param,username,page);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
@@ -97,15 +99,7 @@ public class CourseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("老师查看已开课程列表")
-    @RequestMapping(value = "/startCourse", method = RequestMethod.POST)
-    @AuthToken
-    public ResponseEntity<Object> startCourse(HttpServletRequest request,@RequestBody Course course) {
 
-        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-        List<Course> list = courseService.startCourse(username);
-        return new ResponseEntity<>(list,HttpStatus.OK);
-    }
 
 
     @ApiOperation("管理员获取所有用户课程列表")

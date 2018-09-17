@@ -5,6 +5,8 @@ import java.util.List;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.*;
 import com.chrome.infra.mapper.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,8 +93,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUser() {
-        return userMapper.selectAll();
+    public PageInfo<User> getAllUser(Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"user_id "+page.getSort());
+        return  new PageInfo<>(userMapper.selectAll());
+
     }
 
     @Override

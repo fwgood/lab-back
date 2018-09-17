@@ -7,6 +7,8 @@ import com.chrome.api.service.LabService;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.*;
 import com.chrome.infra.mapper.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,9 +53,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectCourseList(String username) {
-
-         return courseMapper.selectCourseList(username);
+    public PageInfo<Course> selectCourseList(String username, Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"course_id "+page.getSort());
+         return  new PageInfo<>(courseMapper.selectCourseList(username));
 
     }
 
@@ -88,8 +90,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectStateCourse(String param, String username) {
-       return courseMapper.selectStateCourse(param,username);
+    public PageInfo<Course> selectStateCourse(String param, String username, Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"course_id "+page.getSort());
+        return  new PageInfo<>(courseMapper.selectStateCourse(param,username));
+
 
     }
 
@@ -149,9 +153,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> startCourse(String username) {
+    public PageInfo<Course> startCourse(String username, Page page) {
+        PageHelper.startPage(page.getPage(), page.getPageSize(),"course_id "+page.getSort());
         Course course =new Course();
         course.setUserName(username);
-      return   courseMapper.select(course);
+      return   new PageInfo<>(courseMapper.select(course));
     }
 }

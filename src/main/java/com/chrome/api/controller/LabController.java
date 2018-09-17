@@ -6,8 +6,10 @@ import java.util.List;
 import com.chrome.api.dto.CommitLabDto;
 import com.chrome.api.service.LabService;
 import com.chrome.domain.entity.Lab;
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.UserLab;
 import com.chrome.infra.annotation.AuthToken;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,10 +63,10 @@ public class LabController {
 
 
     @ApiOperation("老师获取当前实验下的所有学生成绩信息")
-    @RequestMapping(value = "/scoreList", method = RequestMethod.GET)
+    @RequestMapping(value = "/scoreList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<UserLab>> getScoreList(@RequestParam Integer labId) {
-        List<UserLab> list= labService.getScoreList(labId);
+    public ResponseEntity<PageInfo<UserLab>> getScoreList(@RequestParam Integer labId, @RequestBody(required = false) Page page) {
+        PageInfo<UserLab> list= labService.getScoreList(labId,page);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 

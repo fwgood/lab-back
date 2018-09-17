@@ -16,7 +16,7 @@ import com.github.pagehelper.PageInfo;
 public interface BlogService {
     PageInfo<Blog> getBlogList(Integer courseId, Page page);
 
-    List<Blog> getUserBlogList(String username);
+    PageInfo<Blog> getUserBlogList(String username, Page page);
 
     void publishBlog(String username, Blog blog);
 

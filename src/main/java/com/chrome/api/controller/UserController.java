@@ -7,11 +7,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.chrome.api.dto.LoginDto;
 import com.chrome.api.dto.ResponseTemplate;
 import com.chrome.api.service.UserService;
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.util.ConstantKit;
 import com.chrome.infra.util.Md5TokenGenerator;
 import com.chrome.infra.util.RedisUtil;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,12 +174,12 @@ public class UserController {
     }
 
     @ApiOperation("管理员获取用户")
-    @RequestMapping(value = "getAllUser", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllUser", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<User>> getAllUser() {
+    public ResponseEntity<PageInfo<User>> getAllUser(@RequestBody(required = false) Page page) {
 
 
-        List<User> list=userService.getAllUser();
+        PageInfo<User> list=userService.getAllUser(page);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 

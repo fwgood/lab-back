@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.chrome.api.dto.CommitLabDto;
 import com.chrome.domain.entity.Lab;
+import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.UserLab;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created with IDEA
@@ -19,7 +21,7 @@ public interface LabService {
 */
     List<Lab> selectLabListOnCourse(Integer courseId);
 
-    List<UserLab> getScoreList(Integer labId);
+    PageInfo<UserLab> getScoreList(Integer labId, Page page);
 
     void addLab(Lab lab);
 

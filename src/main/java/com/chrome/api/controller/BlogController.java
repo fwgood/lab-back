@@ -7,8 +7,10 @@ import com.chrome.api.service.BlogService;
 import com.chrome.api.service.BlogsreviewService;
 import com.chrome.domain.entity.Blog;
 import com.chrome.domain.entity.Blogsreview;
+import com.chrome.domain.entity.Page;
 import com.chrome.infra.annotation.AuthToken;
 import com.chrome.infra.interceptor.AuthorizationInterceptor;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +37,12 @@ public class BlogController {
 
 
     @ApiOperation("查询所有博客按courseId查询")
-    @RequestMapping(value = "/blogList", method = RequestMethod.GET)
+    @RequestMapping(value = "/blogList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<List<Blog>> getBlogList(@RequestParam Integer courseId) {
+    public ResponseEntity<PageInfo<Blog>> getBlogList(@RequestParam Integer courseId,@RequestBody(required = false) Page page) {
 
-        List<Blog> list = blogService.getBlogList(courseId);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        PageInfo<Blog> blogList = blogService.getBlogList(courseId, page);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
     @ApiOperation("查询所有博客按当前用户")

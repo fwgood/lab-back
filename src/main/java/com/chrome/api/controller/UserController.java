@@ -108,6 +108,22 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation("用户注册")
+    @RequestMapping(value = "regist", method = RequestMethod.POST)
+    public ResponseEntity<Object> regist(@RequestBody User user) {
+        User user1 = userService.selectByUsername(user.getUserName());
+        if(user1==null) {
+            userService.regist(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+        }
+
+
+
+    }
+
     @ApiOperation("当前用户更改用户信息")
     @RequestMapping(value = "updateUser", method = RequestMethod.GET)
     @AuthToken
@@ -137,11 +153,32 @@ public class UserController {
     @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> deleteUser(HttpServletRequest request,
-                                          @RequestBody Integer userId) {
+                                          @RequestParam Integer userId) {
 
 
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("管理员赋予用户权限")
+    @RequestMapping(value = "updateState", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<Object> updateState(HttpServletRequest request,
+                                             @RequestParam Integer userId,@RequestParam String role) {
+
+
+        userService.updateState(userId,role);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("管理员获取用户")
+    @RequestMapping(value = "getAllUser", method = RequestMethod.GET)
+    @AuthToken
+    public ResponseEntity<List<User>> getAllUser() {
+
+
+        List<User> list=userService.getAllUser();
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
     @ApiOperation("测试token接口")

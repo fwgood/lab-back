@@ -89,4 +89,22 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+    @Override
+    public List<User> getAllUser() {
+        return userMapper.selectAll();
+    }
+
+    @Override
+    public void updateState(Integer userId, String role) {
+        User user =new User();
+        user.setUserId(userId);
+        user.setUserRole(role);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public void regist(User user) {
+        userMapper.insertSelective(user);
+    }
 }

@@ -66,9 +66,9 @@ public class AnnoServiceImpl implements AnnoService {
     @Override
     public List<AnnoIsReadDto> getAnnoAllList(String username) {
         User user = userService.selectByUsername(username);
-        announncementMapper.getAnnoAllList(user.getUserId());
+        List<AnnoIsReadDto> annoAllList = announncementMapper.getAnnoAllList(user.getUserId());
 
-        return null;
+        return annoAllList;
     }
 
     @Override

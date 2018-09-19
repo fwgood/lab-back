@@ -14,5 +14,5 @@ import org.springframework.stereotype.Component;
 public interface AnnounncementMapper extends MyMapper<Announncement> {
     List<Announncement> getAnnoList(@Param("username") String username);
 
-    List<AnnoIsReadDto> getAnnoAllList(Integer userId);
+    List<AnnoIsReadDto> getAnnoAllList(@Param("userId") Integer userId);
 }

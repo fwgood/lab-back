@@ -18,6 +18,8 @@ public class News {
     @Column(name = "news_content")
     private String newsContent;
 
+    @Column(name = "news_title")
+    private String newsTitle;
     @Column(name = "news_time")
     private String newsTime;
 

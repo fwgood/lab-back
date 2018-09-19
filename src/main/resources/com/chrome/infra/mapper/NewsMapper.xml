@@ -10,7 +10,7 @@
     <result column="news_sendname" jdbcType="VARCHAR" property="newsSendname" />
     <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
     <result column="news_content" jdbcType="VARCHAR" property="newsContent" />
-    <result column="news_time" jdbcType="CHAR" property="newsTime" />
+    <result column="news_time" jdbcType="VARCHAR" property="newsTime" />
 
   </resultMap>
 </mapper>

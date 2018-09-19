@@ -91,8 +91,8 @@ public class BlogController {
     @ApiOperation("点赞数++")
     @RequestMapping(value = "/addBlogCount", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Integer> addBlogCount(@RequestParam Integer blogId) {
-        Integer i = blogService.addBlogCount(blogId);
+    public ResponseEntity<Integer> addBlogCount(@RequestParam Integer blogId,@RequestParam Integer op) {
+        Integer i = blogService.addBlogCount(blogId,op);
 
         return new ResponseEntity<>(i, HttpStatus.OK);
     }

@@ -14,13 +14,38 @@
     <result column="announncement_user_id" jdbcType="INTEGER" property="announncementUserId" />
   </resultMap>
 
-  <select id="getAnnoList" resultType="announncement">
+  <resultMap id="annoIsReadDto" type="com.chrome.api.dto.AnnoIsReadDto">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="announncement_id" jdbcType="INTEGER" property="announncementId" />
+    <result column="announncement_content" jdbcType="VARCHAR" property="announncementContent" />
+    <result column="announncement_time" jdbcType="VARCHAR" property="announncementTime" />
+    <result column="announncement_type" jdbcType="CHAR" property="announncementType" />
+    <result column="announncement_course_id" jdbcType="INTEGER" property="announncementCourseId" />
+    <result column="announncement_title" jdbcType="VARCHAR" property="announncementTitle" />
+    <result column="announncement_user_id" jdbcType="INTEGER" property="announncementUserId" />
+    <result column="is_read" jdbcType="VARCHAR" property="isRead" />
+    <result column="user_id" jdbcType="VARCHAR" property="id" />
+  </resultMap>
+
+    <select id="getAnnoList" resultType="announncement">
     select distinct a.*
     from announncement a,selectcourse s
     where s.user_name=#{username}
     and s.course_id=a.announncement_course_id
     or a.announncement_course_id=0
     order by a.announncement_time
+
+
+  </select>
+
+  <select id="getAnnoAllList" resultMap="annoIsReadDto">
+    select distinct a.*,is_read.is_read,ua.user_id
+    from announncement a,user_announncement ua
+    where ua.user_id=#{userId}
+    and ua.announncement_id=a.announncement_id
+
 
 
   </select>

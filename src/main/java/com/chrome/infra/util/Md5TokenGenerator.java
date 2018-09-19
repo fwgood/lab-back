@@ -14,7 +14,7 @@ public class Md5TokenGenerator implements TokenGenerator {
 
     @Override
     public String generate(String... strings) {
-        long   timestamp = System.currentTimeMillis();
+        long timestamp = System.currentTimeMillis();
         String tokenMeta = "";
         for (String s : strings) {
             tokenMeta = tokenMeta + s;
@@ -24,11 +24,11 @@ public class Md5TokenGenerator implements TokenGenerator {
         return token;
     }
 
-  public String passwordMd5(String password){
+    public String passwordMd5(String password) {
         return DigestUtils.md5DigestAsHex(password.getBytes());
-  }
+    }
 
     public static void main(String[] args) {
-        System.out.println(new Md5TokenGenerator().passwordMd5("2"));
+        System.out.println(new Md5TokenGenerator().passwordMd5("1"));
     }
 }

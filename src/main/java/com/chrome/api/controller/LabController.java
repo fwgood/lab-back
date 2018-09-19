@@ -47,17 +47,17 @@ public class LabController {
     public ResponseEntity<List<Lab>> getLabScoreList(HttpServletRequest request, @RequestParam Integer courseId) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-        List<Lab> list= labService.getLabScoreList(username,courseId);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        List<Lab> list = labService.getLabScoreList(username, courseId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-   @ApiOperation("学生提交实验")
+    @ApiOperation("学生提交实验")
     @RequestMapping(value = "/labCommit", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<Object> labCommit(HttpServletRequest request, @RequestBody CommitLabDto commitLabDto) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-       labService.labCommit(username,commitLabDto);
+        labService.labCommit(username, commitLabDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -66,8 +66,8 @@ public class LabController {
     @RequestMapping(value = "/scoreList", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<PageInfo<UserLab>> getScoreList(@RequestParam Integer labId, @RequestBody(required = false) Page page) {
-        PageInfo<UserLab> list= labService.getScoreList(labId,page);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        PageInfo<UserLab> list = labService.getScoreList(labId, page);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @ApiOperation("老师在选中课程下添加实验")
@@ -77,23 +77,25 @@ public class LabController {
         labService.addLab(lab);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @ApiOperation("老师给学生实验批改成绩")
     @RequestMapping(value = "/addLabScore", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<Object> addLabScore(@RequestParam Integer userId,@RequestParam Integer labId,@RequestParam Integer score) {
+    public ResponseEntity<Object> addLabScore(@RequestParam Integer userId, @RequestParam Integer labId, @RequestParam Integer score) {
 
-        if(labService.addLabScore(userId,labId, Float.valueOf(score))) {
+        if (labService.addLabScore(userId, labId, Float.valueOf(score))) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+
     @ApiOperation("老师查看课程下实验列表")
     @RequestMapping(value = "/labList", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<Object> getLabList(@RequestParam Integer courseId) {
-        List<Lab> list= labService.getLabList(courseId);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        List<Lab> list = labService.getLabList(courseId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 

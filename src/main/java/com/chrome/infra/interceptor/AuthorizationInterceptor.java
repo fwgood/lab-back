@@ -48,17 +48,17 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             return true;
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method= handlerMethod.getMethod();
+        Method method = handlerMethod.getMethod();
         // 如果打上了AuthToken注解则需要验证token
         if (method.getAnnotation(AuthToken.class) != null || handlerMethod.getBeanType().getAnnotation(AuthToken.class) != null) {
 
 
             String token = request.getHeader(httpHeaderName);
             String[] split = token.split(" ");
-            token=split[1];
+            token = split[1];
             log.info("token is {}", token);
             String username = "";
-            Jedis jedis= new Jedis("localhost", 6379);
+            Jedis jedis = new Jedis("localhost", 6379);
             if (token != null && token.length() != 0) {
 
                 username = jedis.get(token);

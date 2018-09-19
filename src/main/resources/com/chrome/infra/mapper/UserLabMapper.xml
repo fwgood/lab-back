@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chrome.infra.mapper.UserLabMapper">
-  <resultMap id="userLab" type="com.chrome.domain.entity.UserLab">
+  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.UserLab">
     <!--
       WARNING - @mbg.generated
     -->
@@ -16,7 +16,7 @@
     <result column="commit_content" jdbcType="VARCHAR" property="commitContent" />
   </resultMap>
 
-  <select id="selectLabList" resultMap="userLab">
+    <select id="selectLabList" resultType="userLab">
     select ul.*
     FROM user_lab ul
     where ul.user_name=#{username}

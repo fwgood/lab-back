@@ -8,10 +8,9 @@
     <id column="news_id" jdbcType="INTEGER" property="newsId" />
     <result column="news_sendid" jdbcType="INTEGER" property="newsSendid" />
     <result column="news_sendname" jdbcType="VARCHAR" property="newsSendname" />
-    <result column="news_acceptid" jdbcType="INTEGER" property="newsAcceptid" />
-    <result column="news_acceptname" jdbcType="VARCHAR" property="newsAcceptname" />
+
     <result column="news_content" jdbcType="VARCHAR" property="newsContent" />
     <result column="news_time" jdbcType="CHAR" property="newsTime" />
-    <result column="news_state" jdbcType="CHAR" property="newsState" />
+
   </resultMap>
 </mapper>

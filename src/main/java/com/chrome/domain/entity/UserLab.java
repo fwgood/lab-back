@@ -31,30 +31,6 @@ public class UserLab {
     @Column(name = "commit_content")
     private String commitContent;
 
-    public String getCommitContent() {
-        return commitContent;
-    }
-
-    public void setCommitContent(String commitContent) {
-        this.commitContent = commitContent;
-    }
-
-    public String getCommitUrl() {
-        return commitUrl;
-    }
-
-    public void setCommitUrl(String commitUrl) {
-        this.commitUrl = commitUrl;
-    }
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
     /**
      * @return id
      */
@@ -137,5 +113,47 @@ public class UserLab {
      */
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    /**
+     * @return course_id
+     */
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    /**
+     * @param courseId
+     */
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    /**
+     * @return commit_url
+     */
+    public String getCommitUrl() {
+        return commitUrl;
+    }
+
+    /**
+     * @param commitUrl
+     */
+    public void setCommitUrl(String commitUrl) {
+        this.commitUrl = commitUrl;
+    }
+
+    /**
+     * @return commit_content
+     */
+    public String getCommitContent() {
+        return commitContent;
+    }
+
+    /**
+     * @param commitContent
+     */
+    public void setCommitContent(String commitContent) {
+        this.commitContent = commitContent;
     }
 }

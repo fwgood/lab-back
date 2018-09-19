@@ -18,7 +18,7 @@ public interface LabService {
 
 
     /*List<Lab> selectLabList(String username, Integer courseId);
-*/
+     */
     List<Lab> selectLabListOnCourse(Integer courseId);
 
     PageInfo<UserLab> getScoreList(Integer labId, Page page);

@@ -2,8 +2,8 @@ package com.chrome.domain.entity;
 
 import javax.persistence.*;
 
-@Table(name = "user_announcement")
-public class UserAnnouncement {
+@Table(name = "user_blogsreview")
+public class UserBlogsreview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;
@@ -11,8 +11,11 @@ public class UserAnnouncement {
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "announcement_id")
-    private Integer announcementId;
+    @Column(name = "blogsreview_id")
+    private Integer blogsreviewId;
+
+    @Column(name = "is_read")
+    private Integer isRead;
 
     /**
      * @return id
@@ -43,16 +46,30 @@ public class UserAnnouncement {
     }
 
     /**
-     * @return announcement_id
+     * @return blogsreview_id
      */
-    public Integer getAnnouncementId() {
-        return announcementId;
+    public Integer getBlogsreviewId() {
+        return blogsreviewId;
     }
 
     /**
-     * @param announcementId
+     * @param blogsreviewId
      */
-    public void setAnnouncementId(Integer announcementId) {
-        this.announcementId = announcementId;
+    public void setBlogsreviewId(Integer blogsreviewId) {
+        this.blogsreviewId = blogsreviewId;
+    }
+
+    /**
+     * @return is_read
+     */
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    /**
+     * @param isRead
+     */
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 }

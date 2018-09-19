@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface CourseMapper extends MyMapper<Course> {
-
-          List<Course> selectCourseList(@Param("username") String username);
+    List<Course> selectCourseList(@Param("username")String username);
 
     List<Course> selectStateCourse(@Param("param") String param, @Param("username") String username);
 }

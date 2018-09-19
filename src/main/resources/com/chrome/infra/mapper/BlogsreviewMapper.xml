@@ -10,10 +10,11 @@
     <result column="blogsreview_content" jdbcType="VARCHAR" property="blogsreviewContent" />
     <result column="blogsreview_time" jdbcType="TIMESTAMP" property="blogsreviewTime" />
     <result column="blogsreview_parentid" jdbcType="INTEGER" property="blogsreviewParentid" />
+    <result column="is_read" jdbcType="VARCHAR" property="isRead" />
   </resultMap>
 
-  <select id="getComments" resultType="blogsreview">
+    <select id="getComments" resultType="blogsreview">
 
 
-  </select>
+    </select>
 </mapper>

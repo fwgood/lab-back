@@ -26,7 +26,7 @@ public interface BlogService {
 
     PageInfo<Blog> searchBlog(String param, Page page);
 
-    Integer addBlogCount( Integer blogId);
+    Integer addBlogCount( Integer blogId,Integer op);
 
     List<Blogsreview> getAllComments(String username);
 

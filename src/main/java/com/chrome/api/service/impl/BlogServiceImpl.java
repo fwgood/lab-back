@@ -91,11 +91,15 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Integer addBlogCount( Integer blogId) {
+    public Integer addBlogCount(Integer blogId,Integer op) {
         Blog blog1 = blogMapper.selectByPrimaryKey(blogId);
         Integer blogCount = blog1.getBlogCount();
-        blogCount = blogCount+1;
+        blogCount = blogCount+op;
         blog1.setBlogCount(blogCount);
+        int i = blogMapper.updateByPrimaryKeySelective(blog1);
+        if(i!=1){
+            throw new CommonException("error.addcount.blog");
+        }
         return blogCount;
     }
 

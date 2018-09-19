@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IDEA
@@ -21,34 +22,29 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private SelectcourseMapper selectcourseMapper;
-    @Autowired
-    private StartcourseMapper startcourseMapper;
-    @Autowired
-    private UserLabMapper userLabMapper;
-    @Autowired
-    private AnnounncementMapper announncementMapper;
 
-//登陆
+    //登陆
     @Override
     public User login(User user) {
         return userMapper.selectOne(user);
 
     }
-//根据用户名获得当前用户
+
+    //根据用户名获得当前用户
     @Override
     public User selectByUsername(String username) {
-        User user=new User();
+        User user = new User();
         user.setUserName(username);
         return userMapper.selectOne(user);
     }
-//列出所有用户
+
+    //列出所有用户
     @Override
     public List<User> selectAll() {
         return userMapper.selectAll();
     }
-//获取用户的权限
+
+    //获取用户的权限
     @Override
     public String getRole(String username) {
         return userMapper.getRole(username);
@@ -56,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(String username, String userPassword, String avater, String phone) {
-        User user=new User();
+        User user = new User();
         user.setUserName(username);
         User user1 = userMapper.selectOne(user);
         user1.setUserPassword(userPassword);
@@ -73,41 +69,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(Integer userId) {
         userMapper.deleteByPrimaryKey(userId);
-        Selectcourse selectcourse =new Selectcourse();
-        selectcourse.setUserId(userId);
-        selectcourseMapper.delete(selectcourse);
-        Startcourse startcourse =new Startcourse();
-        startcourse.setUserId(userId);
-        startcourseMapper.delete(startcourse);
-        UserLab userLab =new UserLab();
-        userLab.setUserId(userId);
-        userLabMapper.delete(userLab);
-        Announncement announncement=new Announncement();
-        announncement.setAnnounncementUserId(userId);
-        announncementMapper.delete(announncement);
-        //博客添加后 需级联删除
-
-
     }
 
     @Override
     public PageInfo<User> getAllUser(Page page) {
-        PageHelper.startPage(page.getPage(), page.getPageSize(),"user_id "+page.getSort());
-        return  new PageInfo<>(userMapper.selectAll());
+        PageHelper.startPage(page.getPage(), page.getPageSize(), "user_id " + page.getSort());
+        return new PageInfo<>(userMapper.selectAll());
 
     }
 
     @Override
+    @Transactional
     public void updateState(Integer userId, String role) {
-        User user =new User();
+        User user = new User();
         user.setUserId(userId);
         user.setUserRole(role);
         userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
+    @Transactional
     public void regist(User user) {
         userMapper.insertSelective(user);
     }

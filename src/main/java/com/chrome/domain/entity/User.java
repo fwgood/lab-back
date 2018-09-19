@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     @Column(name = "user_id")
     private Integer userId;
 
@@ -40,16 +41,7 @@ public class User {
     @Column(name = "user_sex")
     private String userSex;
 
-    public String getUserSex() {
-        return userSex;
-    }
-
-    public void setUserSex(String userSex) {
-        this.userSex = userSex;
-    }
-
     /**
-
      * @return user_id
      */
     public Integer getUserId() {
@@ -201,5 +193,19 @@ public class User {
      */
     public void setUserLastsignin(String userLastsignin) {
         this.userLastsignin = userLastsignin;
+    }
+
+    /**
+     * @return user_sex
+     */
+    public String getUserSex() {
+        return userSex;
+    }
+
+    /**
+     * @param userSex
+     */
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
     }
 }

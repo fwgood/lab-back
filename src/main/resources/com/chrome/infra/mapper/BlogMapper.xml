@@ -12,27 +12,28 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="blog_count" jdbcType="INTEGER" property="blogCount" />
   </resultMap>
 
-  <select id="getBlogList" resultType="blog">
-    select * from blog b
-    where 1=1
-    <if test="courseId!= 0">
-      AND b.course_id = #{courseId}
-    </if>
+    <select id="getBlogList" resultType="blog">
+        select * from blog b
+        where 1=1
+        <if test="courseId!= 0">
+            AND b.course_id = #{courseId}
+        </if>
 
-    order by b.blog_time
-  </select>
+        order by b.blog_time
+    </select>
 
-  <select id="searchBlog" resultType="blog">
-    SELECT * FROM blog b
-    WHERE 1=1
-    <if test="param != null">
-      AND  b.blog_title LIKE concat('%',#{param},'%')
-      OR b.blog_content LIKE concat('%',#{param},'%')
-      OR b.user_nickname LIKE concat('%',#{param},'%')
-      OR b.blog_time LIKE concat('%',#{param},'%')
+    <select id="searchBlog" resultType="blog">
+        SELECT * FROM blog b
+        WHERE 1=1
+        <if test="param != null">
+            AND b.blog_title LIKE concat('%',#{param},'%')
+            OR b.blog_content LIKE concat('%',#{param},'%')
+            OR b.user_nickname LIKE concat('%',#{param},'%')
+            OR b.blog_time LIKE concat('%',#{param},'%')
 
-    </if>
-  </select>
+        </if>
+    </select>
 </mapper>

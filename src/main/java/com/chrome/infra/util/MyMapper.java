@@ -1,6 +1,7 @@
 package com.chrome.infra.util;
 
 import tk.mybatis.mapper.common.BaseMapper;
+
 /**
  * Created with IDEA
  * author:Chengcong
@@ -9,7 +10,6 @@ import tk.mybatis.mapper.common.BaseMapper;
  */
 //通用mapper
 public interface MyMapper<T> extends BaseMapper<T> {
-
 
 
 }

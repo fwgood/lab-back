@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 public class News {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     @Column(name = "news_id")
     private Integer newsId;
 
@@ -13,11 +14,6 @@ public class News {
     @Column(name = "news_sendname")
     private String newsSendname;
 
-    @Column(name = "news_acceptid")
-    private Integer newsAcceptid;
-
-    @Column(name = "news_acceptname")
-    private String newsAcceptname;
 
     @Column(name = "news_content")
     private String newsContent;
@@ -25,8 +21,6 @@ public class News {
     @Column(name = "news_time")
     private String newsTime;
 
-    @Column(name = "news_state")
-    private String newsState;
 
     /**
      * @return news_id
@@ -70,33 +64,6 @@ public class News {
         this.newsSendname = newsSendname;
     }
 
-    /**
-     * @return news_acceptid
-     */
-    public Integer getNewsAcceptid() {
-        return newsAcceptid;
-    }
-
-    /**
-     * @param newsAcceptid
-     */
-    public void setNewsAcceptid(Integer newsAcceptid) {
-        this.newsAcceptid = newsAcceptid;
-    }
-
-    /**
-     * @return news_acceptname
-     */
-    public String getNewsAcceptname() {
-        return newsAcceptname;
-    }
-
-    /**
-     * @param newsAcceptname
-     */
-    public void setNewsAcceptname(String newsAcceptname) {
-        this.newsAcceptname = newsAcceptname;
-    }
 
     /**
      * @return news_content
@@ -126,17 +93,5 @@ public class News {
         this.newsTime = newsTime;
     }
 
-    /**
-     * @return news_state
-     */
-    public String getNewsState() {
-        return newsState;
-    }
-
-    /**
-     * @param newsState
-     */
-    public void setNewsState(String newsState) {
-        this.newsState = newsState;
-    }
 }
+

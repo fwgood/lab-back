@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IDEA
@@ -36,8 +37,7 @@ public class CourseServiceImpl implements CourseService {
     private LabMapper labMapper;
     @Autowired
     private UserLabMapper userLabMapper;
-    @Autowired
-    private StartcourseMapper startcourseMapper;
+
 
     @Override
     public List<Course> selectAll() {
@@ -45,12 +45,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void addCourse(Course course,String username) {
-        User user =userService.selectByUsername(username);
+    public void addCourse(Course course, String username) {
+        User user = userService.selectByUsername(username);
         course.setUserId(user.getUserId());
         course.setUserName(user.getUserName());
         int insert = courseMapper.insert(course);
-        if(insert!=1){
+        if (insert != 1) {
             throw new CommonException("error.Course.create");
         }
 
@@ -58,126 +58,103 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public PageInfo<Course> selectCourseList(String username, Page page) {
-        PageHelper.startPage(page.getPage(), page.getPageSize(),"course_id "+page.getSort());
-         return  new PageInfo<>(courseMapper.selectCourseList(username));
+        PageHelper.startPage(page.getPage(), page.getPageSize(), "course_id " + page.getSort());
+        return new PageInfo<>(courseMapper.selectCourseList(username));
 
     }
 
     @Override
-    public Boolean selectCourse(String username, String password,Integer courseId) {
-        User user =userService.selectByUsername(username);
-        Selectcourse selectcourse=new Selectcourse();
+    @Transactional
+    public Boolean selectCourse(String username, String password, Integer courseId) {
+        User user = userService.selectByUsername(username);
+        Selectcourse selectcourse = new Selectcourse();
         selectcourse.setUserName(user.getUserName());
         selectcourse.setUserId(user.getUserId());
         selectcourse.setCourseId(courseId);
         Course course = courseMapper.selectByPrimaryKey(courseId);
         selectcourse.setCourseName(course.getCourseName());
 
-        if(course.getCoursePassword().equals(password)) {
+        if (course.getCoursePassword().equals(password)) {
             UserLab userLab;
             int insert1 = selectcourseMapper.insert(selectcourse);
-            if(insert1!=1){
+            if (insert1 != 1) {
                 throw new CommonException("error.Selectcourse.create");
             }
             List<Lab> labs = labService.selectLabListOnCourse(courseId);
-            for (Lab l:labs) {
-                userLab =new UserLab();
+            for (Lab l : labs) {
+                userLab = new UserLab();
                 userLab.setUserId(user.getUserId());
                 userLab.setUserName(user.getUserName());
                 userLab.setLabId(l.getLabId());
                 userLab.setLabName(l.getLabName());
                 userLab.setCourseId(courseId);
                 int insert = userLabMapper.insert(userLab);
-                if(insert!=1){
+                if (insert != 1) {
                     throw new CommonException("error.UserLab.create");
                 }
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
     public PageInfo<Course> selectStateCourse(String param, String username, Page page) {
-        PageHelper.startPage(page.getPage(), page.getPageSize(),"course_id "+page.getSort());
-        return  new PageInfo<>(courseMapper.selectStateCourse(param,username));
+        PageHelper.startPage(page.getPage(), page.getPageSize(), "course_id " + page.getSort());
+        return new PageInfo<>(courseMapper.selectStateCourse(param, username));
 
 
     }
 
     @Override
+    @Transactional
     public boolean checkCourse(Integer courseState, Integer courseId) {
-        Course course=new Course();
+        Course course = new Course();
         course.setCourseId(courseId);
         course.setCourseState(courseState);
 
         int i = courseMapper.updateByPrimaryKeySelective(course);
-        if(i!=1){
+        if (i != 1) {
             throw new CommonException("error.Course.update");
         }
-        return i==1?true:false;
+        return i == 1 ? true : false;
     }
 
     @Override
+    @Transactional
     public boolean dropCourse(String username, Integer courseId) {
 
 
-            Selectcourse selectcourse =new Selectcourse();
-            selectcourse.setCourseId(courseId);
-            selectcourse.setUserName(username);
+        Selectcourse selectcourse = new Selectcourse();
+        selectcourse.setCourseId(courseId);
+        selectcourse.setUserName(username);
         int delete = selectcourseMapper.delete(selectcourse);
-        if(delete!=1){
+        if (delete != 1) {
             throw new CommonException("error.Selectcourse.delete");
         }
-        UserLab userLab=new UserLab();
-            userLab.setCourseId(courseId);
-            userLab.setUserName(username);
-        int delete1 = userLabMapper.delete(userLab);
 
-        return delete==1?true:false;
+        return delete == 1 ? true : false;
 
     }
 
     @Override
-    public boolean deleteCourse(Integer courseState, Integer courseId) {
-        if(courseState==0){
-            int i = courseMapper.deleteByPrimaryKey(courseId);
-            if(i!=1){
-                throw new CommonException("error.Course.delete");
-            }
-            return i==1?true:false;
+    @Transactional
+    public boolean deleteCourse(Integer courseId) {
 
-        }else{
-            int i = courseMapper.deleteByPrimaryKey(courseId);
-            Lab lab=new Lab();
-            lab.setCourseId(courseId);
-            labMapper.delete(lab);
-
-            Selectcourse selectcourse =new Selectcourse();
-            selectcourse.setCourseId(courseId);
-             selectcourseMapper.delete(selectcourse);
-
-            /*Startcourse startcourse =new Startcourse();
-            startcourse.setCourseId(courseId);
-            startcourseMapper.delete(startcourse);*/
-            UserLab userLab=new UserLab();
-            userLab.setCourseId(courseId);
-            userLabMapper.delete(userLab);
-
-
-
-            return i==1?true:false;
-
+        int i = courseMapper.deleteByPrimaryKey(courseId);
+        if (i != 1) {
+            throw new CommonException("error.Course.delete");
         }
+        return true;
 
     }
 
     @Override
     public PageInfo<Course> startCourse(String username, Page page) {
-        PageHelper.startPage(page.getPage(), page.getPageSize(),"course_id "+page.getSort());
-        Course course =new Course();
+        PageHelper.startPage(page.getPage(), page.getPageSize(), "course_id " + page.getSort());
+        Course course = new Course();
         course.setUserName(username);
-      return   new PageInfo<>(courseMapper.select(course));
+        return new PageInfo<>(courseMapper.select(course));
     }
 }

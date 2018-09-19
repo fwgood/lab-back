@@ -1,11 +1,14 @@
 package com.chrome.domain.entity;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
 public class Blogsreview {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     @Column(name = "blogsreview_id")
     private Integer blogsreviewId;
 
@@ -20,6 +23,17 @@ public class Blogsreview {
 
     @Column(name = "blogsreview_parentid")
     private Integer blogsreviewParentid;
+
+    @Column(name = "is_read")
+    private String isRead;
+
+    public String getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
+    }
 
     /**
      * @return blogsreview_id

@@ -31,11 +31,10 @@ public class BlogController {
     private BlogService blogService;
 
 
-
     @ApiOperation("查询所有博客按courseId查询")
     @RequestMapping(value = "/blogList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<PageInfo<Blog>> getBlogList(@RequestParam Integer courseId,@RequestBody(required = false) Page page) {
+    public ResponseEntity<PageInfo<Blog>> getBlogList(@RequestParam Integer courseId, @RequestBody(required = false) Page page) {
 
         PageInfo<Blog> blogList = blogService.getBlogList(courseId, page);
         return new ResponseEntity<>(blogList, HttpStatus.OK);
@@ -44,7 +43,7 @@ public class BlogController {
     @ApiOperation("模糊查询搜索博客")
     @RequestMapping(value = "/searchBlog", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<PageInfo<Blog>> searchBlog(@RequestParam String param,@RequestBody(required = false) Page page) {
+    public ResponseEntity<PageInfo<Blog>> searchBlog(@RequestParam String param, @RequestBody(required = false) Page page) {
 
         PageInfo<Blog> blogList = blogService.searchBlog(param, page);
         return new ResponseEntity<>(blogList, HttpStatus.OK);
@@ -53,10 +52,10 @@ public class BlogController {
     @ApiOperation("查询所有博客按当前用户")
     @RequestMapping(value = "/userBlogList", method = RequestMethod.POST)
     @AuthToken
-    public ResponseEntity<PageInfo<Blog>> getUserBlogList(HttpServletRequest request,@RequestBody(required = false) Page page) {
+    public ResponseEntity<PageInfo<Blog>> getUserBlogList(HttpServletRequest request, @RequestBody(required = false) Page page) {
         String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
 
-        PageInfo<Blog> blogList = blogService.getUserBlogList(username,page);
+        PageInfo<Blog> blogList = blogService.getUserBlogList(username, page);
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
@@ -87,5 +86,34 @@ public class BlogController {
         List<Blogsreview> list = blogService.getComments(parentId);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @ApiOperation("点赞数++")
+    @RequestMapping(value = "/addBlogCount", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Integer> addBlogCount(@RequestParam Integer blogId) {
+        Integer i = blogService.addBlogCount(blogId);
+
+        return new ResponseEntity<>(i, HttpStatus.OK);
+    }
+
+    @ApiOperation("获取当前用户的所有评论")
+    @RequestMapping(value = "/getAllComments", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<List<Blogsreview>> getAllComments(HttpServletRequest request) {
+        String username = (String) request.getAttribute(AuthorizationInterceptor.REQUEST_CURRENT_KEY);
+        List<Blogsreview> list = blogService.getAllComments(username);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @ApiOperation("设置评论已查看")
+    @RequestMapping(value = "/updateIsRead", method = RequestMethod.POST)
+    @AuthToken
+    public ResponseEntity<Object> updateIsRead(@RequestParam Integer blogsReviewId) {
+
+        blogService.updateIsRead(blogsReviewId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

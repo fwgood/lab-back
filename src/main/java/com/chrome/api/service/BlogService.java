@@ -25,4 +25,10 @@ public interface BlogService {
     List<Blogsreview> getComments(Integer parentId);
 
     PageInfo<Blog> searchBlog(String param, Page page);
+
+    Integer addBlogCount( Integer blogId);
+
+    List<Blogsreview> getAllComments(String username);
+
+    void updateIsRead(Integer blogsReviewId);
 }

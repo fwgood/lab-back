@@ -17,15 +17,15 @@ public interface CourseService {
     PageInfo<Course> selectCourseList(String username, Page page);
 
 
-    void addCourse(Course course,String username);
+    void addCourse(Course course, String username);
 
     List<Course> selectAll();
 
-    Boolean selectCourse(String username, String password,Integer courseId);
+    Boolean selectCourse(String username, String password, Integer courseId);
 
     PageInfo<Course> selectStateCourse(String param, String username, Page page);
 
-    boolean deleteCourse(Integer courseState, Integer courseId);
+    boolean deleteCourse(Integer courseId);
 
     boolean checkCourse(Integer courseState, Integer courseId);
 

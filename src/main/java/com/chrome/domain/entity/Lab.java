@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 public class Lab {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     @Column(name = "lab_id")
     private Integer labId;
 
@@ -24,7 +25,6 @@ public class Lab {
 
     @Column(name = "course_id")
     private Integer courseId;
-
 
     /**
      * @return lab_id

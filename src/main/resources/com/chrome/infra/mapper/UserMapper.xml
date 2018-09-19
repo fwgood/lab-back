@@ -19,7 +19,7 @@
     <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
   </resultMap>
 
-  <select id="getRole" resultType="string">
+    <select id="getRole" resultType="string">
       SELECT user_role FROM user U WHERE U.user_name = #{username}
     </select>
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface BlogMapper extends MyMapper<Blog> {
-
     List<Blog> getBlogList(@Param("courseId") Integer courseId);
 
     List<Blog> searchBlog(@Param("param") String param);

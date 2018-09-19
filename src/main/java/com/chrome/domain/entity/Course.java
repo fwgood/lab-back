@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 public class Course {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     @Column(name = "course_id")
     private Integer courseId;
 

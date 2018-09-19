@@ -32,7 +32,6 @@ import redis.clients.jedis.Jedis;
 @Slf4j
 @RequestMapping("/api/v1/user")
 public class UserController {
-  
 
 
     @Autowired
@@ -58,7 +57,7 @@ public class UserController {
         if (currentUser != null) {
             token = tokenGenerator.generate(username, password);
             System.out.println(token);
-            result.put("token",token);
+            result.put("token", token);
             jedis.set(username, token);
             jedis.expire(username, ConstantKit.TOKEN_EXPIRE_TIME);
             jedis.set(token, username);
@@ -68,17 +67,17 @@ public class UserController {
             jedis.set(token + username, currentTime.toString());
             //用完关闭
             RedisUtil.returnResource(jedis);
-          message="登陆成功";
-          String role=userService.getRole(username);
-            result.put("message",message);
-            result.put("code",200);
-            result.put("role",role);
-            return  new ResponseEntity<>(result,HttpStatus.OK);
+            message = "登陆成功";
+            String role = userService.getRole(username);
+            result.put("message", message);
+            result.put("code", 200);
+            result.put("role", role);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
-            message="登陆失败";
-            result.put("code",401);
-            result.put("message",message);
-            return  new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
+            message = "登陆失败";
+            result.put("code", 401);
+            result.put("message", message);
+            return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
         }
 
     }
@@ -89,11 +88,10 @@ public class UserController {
     public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
 
 
-
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         User user = userService.selectByUsername(username);
 
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
@@ -114,15 +112,14 @@ public class UserController {
     @RequestMapping(value = "regist", method = RequestMethod.POST)
     public ResponseEntity<Object> regist(@RequestBody User user) {
         User user1 = userService.selectByUsername(user.getUserName());
-        if(user1==null) {
+        if (user1 == null) {
             user.setUserPassword(tokenGenerator.passwordMd5(user.getUserPassword()));
             userService.regist(user);
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
         }
-
 
 
     }
@@ -131,13 +128,13 @@ public class UserController {
     @RequestMapping(value = "updateUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> updateUser(HttpServletRequest request,
-                                             @RequestParam(required = false)String password,
-                                             @RequestParam(required = false)String avater,
-                                             @RequestParam(required = false)String phone) {
+                                             @RequestParam(required = false) String password,
+                                             @RequestParam(required = false) String avater,
+                                             @RequestParam(required = false) String phone) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
         String userPassword = tokenGenerator.passwordMd5(password);
-        userService.updateUser(username,userPassword,avater,phone);
+        userService.updateUser(username, userPassword, avater, phone);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -145,7 +142,7 @@ public class UserController {
     @RequestMapping(value = "addUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> addUser(HttpServletRequest request,
-                                             @RequestBody User user) {
+                                          @RequestBody User user) {
 
         user.setUserPassword(tokenGenerator.passwordMd5(user.getUserPassword()));
         userService.addUser(user);
@@ -156,9 +153,14 @@ public class UserController {
     @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> deleteUser(HttpServletRequest request,
-                                          @RequestParam Integer userId) {
+                                             @RequestParam Integer userId) {
 
-
+        Jedis jedis = RedisUtil.getJedis();
+        String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
+        String token = jedis.get(username);
+        jedis.del(username);
+        jedis.del(token);
+        RedisUtil.returnResource(jedis);
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -167,7 +169,7 @@ public class UserController {
     @RequestMapping(value = "updateState", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> updateState(HttpServletRequest request,
-                                             @RequestParam Integer userId,@RequestParam String role) {
+                                              @RequestParam Integer userId, @RequestParam String role) {
 
 
         userService.updateState(userId,role);
@@ -178,10 +180,8 @@ public class UserController {
     @RequestMapping(value = "getAllUser", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<PageInfo<User>> getAllUser(@RequestBody(required = false) Page page) {
-
-
-        PageInfo<User> list=userService.getAllUser(page);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        PageInfo<User> list = userService.getAllUser(page);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @ApiOperation("测试token接口")

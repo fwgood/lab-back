@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 public class Blog {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     @Column(name = "blog_id")
     private Integer blogId;
 
@@ -25,13 +26,9 @@ public class Blog {
     @Column(name = "course_id")
     private Integer courseId;
 
-    public Integer getCourseId() {
-        return courseId;
-    }
+    @Column(name = "blog_count")
+    private Integer blogCount;
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
 
     /**
      * @return blog_id
@@ -115,5 +112,33 @@ public class Blog {
      */
     public void setUserNickname(String userNickname) {
         this.userNickname = userNickname;
+    }
+
+    /**
+     * @return course_id
+     */
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    /**
+     * @param courseId
+     */
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    /**
+     * @return blog_count
+     */
+    public Integer getBlogCount() {
+        return blogCount;
+    }
+
+    /**
+     * @param blogCount
+     */
+    public void setBlogCount(Integer blogCount) {
+        this.blogCount = blogCount;
     }
 }

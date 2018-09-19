@@ -2,6 +2,7 @@ package com.chrome.api.service;
 
 import java.util.List;
 
+import com.chrome.api.dto.AnnoIsReadDto;
 import com.chrome.domain.entity.Announncement;
 
 /**
@@ -14,4 +15,8 @@ public interface AnnoService {
     List<Announncement> getAnnoList(String username);
 
     void publishAnno(String username, Announncement announncement);
+
+    List<AnnoIsReadDto> getAnnoAllList(String username);
+
+    void updateIsRead(Integer id);
 }

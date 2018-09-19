@@ -8,7 +8,7 @@
     <id column="news_id" jdbcType="INTEGER" property="newsId" />
     <result column="news_sendid" jdbcType="INTEGER" property="newsSendid" />
     <result column="news_sendname" jdbcType="VARCHAR" property="newsSendname" />
-
+    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
     <result column="news_content" jdbcType="VARCHAR" property="newsContent" />
     <result column="news_time" jdbcType="CHAR" property="newsTime" />
 

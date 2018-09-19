@@ -20,6 +20,15 @@ public class News {
 
     @Column(name = "news_title")
     private String newsTitle;
+
+    public String getNewsTitle() {
+        return newsTitle;
+    }
+
+    public void setNewsTitle(String newsTitle) {
+        this.newsTitle = newsTitle;
+    }
+
     @Column(name = "news_time")
     private String newsTime;
 

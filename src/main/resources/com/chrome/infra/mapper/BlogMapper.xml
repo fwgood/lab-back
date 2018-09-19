@@ -13,6 +13,7 @@
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="blog_count" jdbcType="INTEGER" property="blogCount" />
+      <result column="blog_tag" jdbcType="VARCHAR" property="blogTag" />
   </resultMap>
 
     <select id="getBlogList" resultType="blog">
@@ -33,7 +34,7 @@
             OR b.blog_content LIKE concat('%',#{param},'%')
             OR b.user_nickname LIKE concat('%',#{param},'%')
             OR b.blog_time LIKE concat('%',#{param},'%')
-
+            OR b.blog_tag LIKE concat('%',#{param},'%')
         </if>
     </select>
 </mapper>

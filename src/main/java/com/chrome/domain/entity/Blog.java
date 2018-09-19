@@ -29,6 +29,16 @@ public class Blog {
     @Column(name = "blog_count")
     private Integer blogCount;
 
+    @Column(name = "blog_tag")
+    private String blogTag;
+
+    public String getBlogTag() {
+        return blogTag;
+    }
+
+    public void setBlogTag(String blogTag) {
+        this.blogTag = blogTag;
+    }
 
     /**
      * @return blog_id

@@ -132,7 +132,9 @@ public class UserController {
                                            @RequestBody UpdateUserDto updateUserDto) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-        updateUserDto.setUserPassword(tokenGenerator.passwordMd5(updateUserDto.getUserPassword()));
+        if(updateUserDto.getUserPassword()!=null) {
+            updateUserDto.setUserPassword(tokenGenerator.passwordMd5(updateUserDto.getUserPassword()));
+        }
         userService.updateUser(username,updateUserDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

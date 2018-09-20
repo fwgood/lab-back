@@ -2,9 +2,11 @@ package com.chrome.api.service.impl;
 
 import java.util.List;
 
+import com.chrome.api.dto.UpdateUserDto;
 import com.chrome.api.service.UserService;
-import com.chrome.domain.entity.*;
-import com.chrome.infra.mapper.*;
+import com.chrome.domain.entity.Page;
+import com.chrome.domain.entity.User;
+import com.chrome.infra.mapper.UserMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +53,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String username, String userPassword, String avater, String phone) {
+    public void updateUser(String username, UpdateUserDto updateUserDto) {
         User user = new User();
         user.setUserName(username);
         User user1 = userMapper.selectOne(user);
-        user1.setUserPassword(userPassword);
-        user1.setUserAvatar(avater);
-        user1.setUserPhone(phone);
+        user1.setUserPassword(updateUserDto.getUserPassword());
+        user1.setUserAvatar(updateUserDto.getUserAvatar());
+        user1.setUserPhone(updateUserDto.getUserPhone());
+        user1.setUserNickname(updateUserDto.getUserNickname());
+        user1.setUserCollege(updateUserDto.getUserCollege());
+        user1.setUserGrade(updateUserDto.getUserGrade());
+        user1.setUserSex(updateUserDto.getUserSex());
+        user1.setUserMajor(updateUserDto.getUserMajor());
         userMapper.updateByPrimaryKeySelective(user1);
 
     }

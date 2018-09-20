@@ -2,6 +2,7 @@ package com.chrome.api.service;
 
 import java.util.List;
 
+import com.chrome.api.dto.UpdateUserDto;
 import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
 import com.github.pagehelper.PageInfo;
@@ -24,7 +25,7 @@ public interface UserService {
     String getRole(String username);
 
 
-    void updateUser(String username, String userPassword, String avater, String phone);
+    void updateUser(String username, UpdateUserDto updateUserDto);
 
     void addUser(User user);
 

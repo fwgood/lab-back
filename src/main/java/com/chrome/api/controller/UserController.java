@@ -6,6 +6,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.chrome.api.dto.LoginDto;
 import com.chrome.api.dto.ResponseTemplate;
+import com.chrome.api.dto.UpdateUserDto;
 import com.chrome.api.service.UserService;
 import com.chrome.domain.entity.Page;
 import com.chrome.domain.entity.User;
@@ -128,13 +129,11 @@ public class UserController {
     @RequestMapping(value = "updateUser", method = RequestMethod.GET)
     @AuthToken
     public ResponseEntity<Object> updateUser(HttpServletRequest request,
-                                             @RequestParam(required = false) String password,
-                                             @RequestParam(required = false) String avater,
-                                             @RequestParam(required = false) String phone) {
+                                           @RequestBody UpdateUserDto updateUserDto) {
 
         String username = (String) request.getAttribute("REQUEST_CURRENT_KEY");
-        String userPassword = tokenGenerator.passwordMd5(password);
-        userService.updateUser(username, userPassword, avater, phone);
+        updateUserDto.setUserPassword(tokenGenerator.passwordMd5(updateUserDto.getUserPassword()));
+        userService.updateUser(username,updateUserDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

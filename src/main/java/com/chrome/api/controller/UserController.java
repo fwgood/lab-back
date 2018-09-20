@@ -126,7 +126,7 @@ public class UserController {
     }
 
     @ApiOperation("当前用户更改用户信息")
-    @RequestMapping(value = "updateUser", method = RequestMethod.GET)
+    @RequestMapping(value = "updateUser", method = RequestMethod.POST)
     @AuthToken
     public ResponseEntity<Object> updateUser(HttpServletRequest request,
                                            @RequestBody UpdateUserDto updateUserDto) {

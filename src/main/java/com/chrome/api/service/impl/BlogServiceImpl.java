@@ -69,6 +69,8 @@ public class BlogServiceImpl implements BlogService {
     public void publishComment(String username, Blogsreview blogsreview) {
         User user = userService.selectByUsername(username);
         blogsreview.setBlogsreviewUserid(user.getUserId());
+        blogsreview.setUserNickname(user.getUserNickname());
+        blogsreview.setUserAvatar(user.getUserAvatar());
         int i = blogsreviewMapper.insertSelective(blogsreview);
         if (i != 1) {
             throw new CommonException("error.Comment.create");

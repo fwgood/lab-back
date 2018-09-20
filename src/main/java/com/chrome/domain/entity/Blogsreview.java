@@ -27,6 +27,28 @@ public class Blogsreview {
     @Column(name = "is_read")
     private String isRead;
 
+    @Column(name = "user_nickname")
+    private String userNickname;
+
+    @Column(name = "user_avatar")
+    private String userAvatar;
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
+
+    public String getUserNickname() {
+        return userNickname;
+    }
+
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
+    }
+
     public String getIsRead() {
         return isRead;
     }

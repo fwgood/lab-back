@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chrome.infra.mapper.BlogsreviewMapper">
-  <resultMap id="BaseResultMap" type="com.chrome.domain.entity.Blogsreview">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="blogsreview_id" jdbcType="INTEGER" property="blogsreviewId" />
-    <result column="blogsreview_userid" jdbcType="INTEGER" property="blogsreviewUserid" />
-    <result column="blogsreview_content" jdbcType="VARCHAR" property="blogsreviewContent" />
-    <result column="blogsreview_time" jdbcType="TIMESTAMP" property="blogsreviewTime" />
-    <result column="blogsreview_parentid" jdbcType="INTEGER" property="blogsreviewParentid" />
-    <result column="is_read" jdbcType="VARCHAR" property="isRead" />
-  </resultMap>
+
 
     <select id="getComments" resultType="blogsreview">
 

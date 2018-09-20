@@ -38,8 +38,8 @@ public class User {
     @Column(name = "user_lastsignin")
     private String userLastsignin;
 
-    @Column(name = "user_sex")
-    private String userSex;
+        @Column(name = "user_sex")
+        private String userSex;
 
     /**
      * @return user_id
